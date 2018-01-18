@@ -2,7 +2,6 @@ package com.tutorial.spring.receipe.model;
 
 import java.math.BigDecimal;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -40,6 +39,22 @@ public class Ingredient {
 	public Ingredient() {
 	}
 	
+	/**
+	 * Constructor to create a new Ingredient bean
+	 * 
+	 * @param decription		the name of the ingredient
+	 * @param amount			the amount of the ingredient
+	 * @param unitOfMeas		the measurement unit of the amount
+	 */
+	public Ingredient(String decription, BigDecimal amount, UnitOfMeasure unitOfMeas) {
+		super();
+		this.decription = decription;
+		this.amount = amount;
+		this.unitOfMeas = unitOfMeas;
+	}
+
+
+
 
 	public Long getId() {
 		return id;
