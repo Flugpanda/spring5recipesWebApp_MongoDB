@@ -39,6 +39,7 @@ public class Recipe {
 	private String url;
 	private String directions;
 
+	// using cascade makes it unnecessary to write a own jpa data repository for the notes
 	@OneToOne(cascade = CascadeType.ALL)
 	private Notes note;
 

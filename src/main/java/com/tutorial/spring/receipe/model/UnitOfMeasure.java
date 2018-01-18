@@ -52,5 +52,10 @@ public class UnitOfMeasure {
 	public void setIngredient(Ingredient ingredient) {
 		this.ingredient = ingredient;
 	}
+
+	@Override
+	public String toString() {
+		return "UnitOfMeasure [id=" + id + ", unitDescription=" + unitDescription + "]";
+	}
 	
 }
