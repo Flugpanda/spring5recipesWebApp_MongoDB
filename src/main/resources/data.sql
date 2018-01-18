@@ -1,0 +1,14 @@
+INSERT INTO category (description) VALUES ('American');
+INSERT INTO category (description) VALUES ('Italian');
+INSERT INTO category (description) VALUES ('Mexican');
+INSERT INTO category (description) VALUES ('German');
+INSERT INTO category (description) VALUES ('Indian');
+INSERT INTO category (description) VALUES ('Fast Food');
+INSERT INTO unit_of_measure (unit_description) VALUES ('Teaspoon');
+INSERT INTO unit_of_measure (unit_description) VALUES ('Tablespoon');
+INSERT INTO unit_of_measure (unit_description) VALUES ('Cup');
+INSERT INTO unit_of_measure (unit_description) VALUES ('Pinch');
+INSERT INTO unit_of_measure (unit_description) VALUES ('Milliliter');
+INSERT INTO unit_of_measure (unit_description) VALUES ('Liter');
+INSERT INTO unit_of_measure (unit_description) VALUES ('Gram');
+INSERT INTO unit_of_measure (unit_description) VALUES ('Kilogram');
