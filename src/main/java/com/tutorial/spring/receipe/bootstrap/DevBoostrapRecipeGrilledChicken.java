@@ -65,70 +65,70 @@ public class DevBoostrapRecipeGrilledChicken implements ApplicationListener<Cont
 
 		// define some ingredients
 		Ingredient chili = new Ingredient();
-		chili.setDecription("ancho chili powder");
+		chili.setDescription("ancho chili powder");
 		chili.setAmount(new BigDecimal("2"));
 		chili.setUnitOfMeas(unitRepository.findByUnitDescription("Teaspoon").get());
 		chili.setRecipe(chickenRecipe);
 		chickenRecipe.getIngredients().add(chili);
 
 		Ingredient oregano = new Ingredient();
-		oregano.setDecription("dried oregano");
+		oregano.setDescription("dried oregano");
 		oregano.setAmount(new BigDecimal("1"));
 		oregano.setUnitOfMeas(unitRepository.findByUnitDescription("Teaspoon").get());
 		oregano.setRecipe(chickenRecipe);
 		chickenRecipe.getIngredients().add(oregano);
 
 		Ingredient onions = new Ingredient();
-		onions.setDecription("cup of minced red onion or thinly sliced green onion");
+		onions.setDescription("cup of minced red onion or thinly sliced green onion");
 		onions.setAmount(new BigDecimal("2"));
 		onions.setUnitOfMeas(unitRepository.findByUnitDescription("Tablespoon").get());
 		onions.setRecipe(chickenRecipe);
 		chickenRecipe.getIngredients().add(onions);
 
 		Ingredient sugar = new Ingredient();
-		sugar.setDecription("sugar");
+		sugar.setDescription("sugar");
 		sugar.setAmount(new BigDecimal("1"));
 		sugar.setUnitOfMeas(unitRepository.findByUnitDescription("Teaspoon").get());
 		sugar.setRecipe(chickenRecipe);
 		chickenRecipe.getIngredients().add(sugar);
 
 		Ingredient salt = new Ingredient();
-		salt.setDecription("teaspoon salt");
+		salt.setDescription("teaspoon salt");
 		salt.setAmount(new BigDecimal("0.5"));
 		salt.setUnitOfMeas(unitRepository.findByUnitDescription("Teaspoon").get());
 		salt.setRecipe(chickenRecipe);
 		chickenRecipe.getIngredients().add(salt);
 
 		Ingredient galic = new Ingredient();
-		galic.setDecription("garlic, finely chopped");
+		galic.setDescription("garlic, finely chopped");
 		galic.setAmount(new BigDecimal("1"));
 		galic.setUnitOfMeas(unitRepository.findByUnitDescription("Clove").get());
 		galic.setRecipe(chickenRecipe);
 		chickenRecipe.getIngredients().add(galic);
 
 		Ingredient orange = new Ingredient();
-		orange.setDecription("finely grated orange zest");
+		orange.setDescription("finely grated orange zest");
 		orange.setAmount(new BigDecimal("1"));
 		orange.setUnitOfMeas(unitRepository.findByUnitDescription("Tablespoon").get());
 		orange.setRecipe(chickenRecipe);
 		chickenRecipe.getIngredients().add(orange);
 
 		Ingredient orangeJuice = new Ingredient();
-		orangeJuice.setDecription("fresh-squeezed orange juice");
+		orangeJuice.setDescription("fresh-squeezed orange juice");
 		orangeJuice.setAmount(new BigDecimal("3"));
 		orangeJuice.setUnitOfMeas(unitRepository.findByUnitDescription("Tablespoon").get());
 		orangeJuice.setRecipe(chickenRecipe);
 		chickenRecipe.getIngredients().add(orangeJuice);
 
 		Ingredient oliveOil = new Ingredient();
-		oliveOil.setDecription("olive oil");
+		oliveOil.setDescription("olive oil");
 		oliveOil.setAmount(new BigDecimal("2"));
 		oliveOil.setUnitOfMeas(unitRepository.findByUnitDescription("Tablespoon").get());
 		oliveOil.setRecipe(chickenRecipe);
 		chickenRecipe.getIngredients().add(oliveOil);
 
 		Ingredient chicken = new Ingredient();
-		chicken.setDecription("skinless, boneless chicken thighs (1 1/4 pounds)");
+		chicken.setDescription("skinless, boneless chicken thighs (1 1/4 pounds)");
 		chicken.setAmount(new BigDecimal("4"));
 		chicken.setUnitOfMeas(unitRepository.findByUnitDescription("Piece").get());
 		chicken.setRecipe(chickenRecipe);

@@ -63,11 +63,11 @@ public class Ingredient {
 		this.id = id;
 	}
 
-	public String getDecription() {
+	public String getDescription() {
 		return description;
 	}
 
-	public void setDecription(String decription) {
+	public void setDescription(String decription) {
 		this.description = decription;
 	}
 

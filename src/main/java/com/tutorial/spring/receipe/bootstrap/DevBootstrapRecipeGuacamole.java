@@ -63,56 +63,56 @@ public class DevBootstrapRecipeGuacamole implements ApplicationListener<ContextR
 
 		// define some ingredients
 		Ingredient avocados = new Ingredient();
-		avocados.setDecription("ripe avocados");
+		avocados.setDescription("ripe avocados");
 		avocados.setAmount(new BigDecimal("2.00"));
 		avocados.setUnitOfMeas(unitRepository.findByUnitDescription("Piece").get());
 		avocados.setRecipe(guacamoleRecipe);
 		guacamoleRecipe.getIngredients().add(avocados);
 
 		Ingredient salt = new Ingredient();
-		salt.setDecription("Kosher salt");
+		salt.setDescription("Kosher salt");
 		salt.setAmount(new BigDecimal("0.5"));
 		salt.setUnitOfMeas(unitRepository.findByUnitDescription("Teaspoon").get());
 		salt.setRecipe(guacamoleRecipe);
 		guacamoleRecipe.getIngredients().add(salt);
 
 		Ingredient limeJuice = new Ingredient();
-		limeJuice.setDecription("lime juice");
+		limeJuice.setDescription("lime juice");
 		limeJuice.setAmount(new BigDecimal("1"));
 		limeJuice.setUnitOfMeas(unitRepository.findByUnitDescription("Tablespoon").get());
 		limeJuice.setRecipe(guacamoleRecipe);
 		guacamoleRecipe.getIngredients().add(limeJuice);
 
 		Ingredient onions = new Ingredient();
-		onions.setDecription("cup of minced red onion or thinly sliced green onion");
+		onions.setDescription("cup of minced red onion or thinly sliced green onion");
 		onions.setAmount(new BigDecimal("2"));
 		onions.setUnitOfMeas(unitRepository.findByUnitDescription("Tablespoon").get());
 		onions.setRecipe(guacamoleRecipe);
 		guacamoleRecipe.getIngredients().add(onions);
 
 		Ingredient serranoChiles = new Ingredient();
-		serranoChiles.setDecription("serrano chiles, stems and seeds removed, minced");
+		serranoChiles.setDescription("serrano chiles, stems and seeds removed, minced");
 		serranoChiles.setAmount(new BigDecimal("2"));
 		serranoChiles.setUnitOfMeas(unitRepository.findByUnitDescription("Piece").get());
 		serranoChiles.setRecipe(guacamoleRecipe);
 		guacamoleRecipe.getIngredients().add(serranoChiles);
 
 		Ingredient cilantro = new Ingredient();
-		cilantro.setDecription("cilantro (leaves and tender stems), finely chopped");
+		cilantro.setDescription("cilantro (leaves and tender stems), finely chopped");
 		cilantro.setAmount(new BigDecimal("2"));
 		cilantro.setUnitOfMeas(unitRepository.findByUnitDescription("Tablespoon").get());
 		cilantro.setRecipe(guacamoleRecipe);
 		guacamoleRecipe.getIngredients().add(cilantro);
 
 		Ingredient pepper = new Ingredient();
-		pepper.setDecription("of freshly grated black pepper");
+		pepper.setDescription("of freshly grated black pepper");
 		pepper.setAmount(new BigDecimal("1"));
 		pepper.setUnitOfMeas(unitRepository.findByUnitDescription("Dash").get());
 		pepper.setRecipe(guacamoleRecipe);
 		guacamoleRecipe.getIngredients().add(pepper);
 
 		Ingredient tomato = new Ingredient();
-		tomato.setDecription("tomato, seeds and pulp removed, chopped");
+		tomato.setDescription("tomato, seeds and pulp removed, chopped");
 		tomato.setAmount(new BigDecimal("2"));
 		tomato.setUnitOfMeas(unitRepository.findByUnitDescription("Piece").get());
 		tomato.setRecipe(guacamoleRecipe);
