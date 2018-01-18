@@ -12,3 +12,5 @@ INSERT INTO unit_of_measure (unit_description) VALUES ('Milliliter');
 INSERT INTO unit_of_measure (unit_description) VALUES ('Liter');
 INSERT INTO unit_of_measure (unit_description) VALUES ('Gram');
 INSERT INTO unit_of_measure (unit_description) VALUES ('Kilogram');
+INSERT INTO unit_of_measure (unit_description) VALUES ('Piece');
+INSERT INTO unit_of_measure (unit_description) VALUES ('Dash');

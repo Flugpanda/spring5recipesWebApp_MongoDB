@@ -72,6 +72,7 @@ public class Recipe {
 	 */
 	public Recipe() {
 		ingredients = new HashSet<>();
+		categories = new HashSet<>();
 	}
 
 	/**

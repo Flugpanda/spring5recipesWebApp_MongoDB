@@ -22,8 +22,7 @@ public class Ingredient {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
-	
-	private String decription;
+	private String description;
 	private BigDecimal amount;
 	
 	// FetchType.EAGER will tell hibernate to load the object every time from the database 
@@ -48,7 +47,7 @@ public class Ingredient {
 	 */
 	public Ingredient(String decription, BigDecimal amount, UnitOfMeasure unitOfMeas) {
 		super();
-		this.decription = decription;
+		this.description = decription;
 		this.amount = amount;
 		this.unitOfMeas = unitOfMeas;
 	}
@@ -65,11 +64,11 @@ public class Ingredient {
 	}
 
 	public String getDecription() {
-		return decription;
+		return description;
 	}
 
 	public void setDecription(String decription) {
-		this.decription = decription;
+		this.description = decription;
 	}
 
 	public BigDecimal getAmount() {
@@ -87,9 +86,17 @@ public class Ingredient {
 	public void setRecipe(Recipe recipe) {
 		this.recipe = recipe;
 	}
+	
+	public UnitOfMeasure getUnitOfMeas() {
+		return unitOfMeas;
+	}
+
+	public void setUnitOfMeas(UnitOfMeasure unitOfMeas) {
+		this.unitOfMeas = unitOfMeas;
+	}
 
 	@Override
 	public String toString() {
-		return "Ingedient [id=" + id + ", decription=" + decription + ", amount=" + amount + "]";
+		return "Ingedient [id=" + id + ", decription=" + description + ", amount=" + amount + "]";
 	}
 }

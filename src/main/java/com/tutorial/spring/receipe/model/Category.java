@@ -33,6 +33,7 @@ public class Category {
 	 * default constructor
 	 */
 	public Category() {
+		recipes = new HashSet<>();
 	}
 	
 	/**

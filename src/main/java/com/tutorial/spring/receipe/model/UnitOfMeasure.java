@@ -19,10 +19,7 @@ public class UnitOfMeasure {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	private String unitDescription;
-	
-	@OneToOne
-	private Ingredient ingredient;
-	
+		
 	/**
 	 * default constructor
 	 */
@@ -43,14 +40,6 @@ public class UnitOfMeasure {
 
 	public void setUom(String uom) {
 		this.unitDescription = uom;
-	}
-
-	public Ingredient getIngredient() {
-		return ingredient;
-	}
-
-	public void setIngredient(Ingredient ingredient) {
-		this.ingredient = ingredient;
 	}
 
 	@Override
