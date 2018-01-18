@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Check our fresh recipes</title>
+</head>
+<body>
+	<h1>Welcome, please check our new recipes!</h1>
+	<table th:each="recipe: ${allRecipes}">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Recipe Description</th>
+				<th>Ingredients</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td th:text="${recipe.id}">123</td>
+				<td th:text="${recipe.description}">Recipe Title</td>
+				<td>
+					<table>
+					<thead>
+					<tr>
+						<th>Amount</th>
+						<th>Measuring Unit</th>
+						<th>Description</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr th:each="ingredient: ${recipe.ingredients}">
+						<td th:text="${ingredient.amount}">2.0</td>
+						<td th:text="${ingredient.unitOfMeas.uom}">Gram</td>
+						<td th:text="${ingredient.description}"></td>
+					</tr>
+					</tbody>
+					</table>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>
