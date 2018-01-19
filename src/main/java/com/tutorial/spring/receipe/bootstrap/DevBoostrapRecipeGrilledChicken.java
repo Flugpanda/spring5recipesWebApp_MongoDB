@@ -154,7 +154,7 @@ public class DevBoostrapRecipeGrilledChicken extends DevBoostrapRecipe
 				+ "Everyone can grab a warm tortilla from the pile and make their own tacos just they way they like them.\n"
 				+ "\n"
 				+ "You could also easily double or even triple this recipe for a larger party. A taco and a cold beer on a warm day? Now that’s living!\n");
-		chickenRecipe.setNote(note);
+		chickenRecipe.setNotes(note);
 		
 		chickenRecipe.setDirections("1 Prepare a gas or charcoal grill for medium-high, direct heat.\n" + "\n"
 				+ "2 Make the marinade and coat the chicken: In a large bowl, stir together the chili powder, oregano, cumin, sugar, salt, garlic and orange zest. Stir in the orange juice and olive oil to make a loose paste. Add the chicken to the bowl and toss to coat all over.\n"

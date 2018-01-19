@@ -122,7 +122,7 @@ public class DevBootstrapRecipeGuacamole extends DevBoostrapRecipe  implements A
 						+ "All you really need to make guacamole is ripe avocados and salt. After that, a little lime or lemon juice—a splash of acidity to balance the richness of the avocado. Then comes chopped cilantro, chiles, onion, and tomato, if you want.\n"
 						+ "\n"
 						+ "The trick to making perfect guacamole is using good, ripe avocados. Check for ripeness by gently pressing the outside of the avocado. If there is no give, the avocado is not ripe yet and will not taste good. If there is a little give, the avocado is ripe. If there is a lot of give, the avocado may be past ripe and not good. In this case, taste test first before using.\n");
-		guacamoleRecipe.setNote(note);
+		guacamoleRecipe.setNotes(note);
 		
 		// adding the directs of coocking
 		guacamoleRecipe.setDirections(
