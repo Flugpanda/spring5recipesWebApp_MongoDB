@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -37,6 +38,8 @@ public class Recipe {
 	private String servings;
 	private String source;
 	private String url;
+	
+	@Lob
 	private String directions;
 
 	// using cascade makes it unnecessary to write a own jpa data repository for the notes
@@ -108,6 +111,18 @@ public class Recipe {
 		this.difficulty = difficulty;
 	}
 
+	/**
+	 * A convenience method to do the bidirectional mapping for the ingredients and the recipes
+	 * 
+	 * @param ingredient	the ingredient to ad
+	 * @return				the recipe
+	 */
+	public Recipe addIngredient(Ingredient ingredient) {
+		ingredient.setRecipe(this);
+		this.ingredients.add(ingredient);
+		return this;
+	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -176,8 +191,14 @@ public class Recipe {
 		return note;
 	}
 
+	/**
+	 * Add the note to the recipe and do the bidirectional mapping 
+	 * 
+	 * @param note		the note to add
+	 */
 	public void setNote(Notes note) {
 		this.note = note;
+		note.setRecipe(this);
 	}
 
 	public Set<Ingredient> getIngredients() {
@@ -187,7 +208,7 @@ public class Recipe {
 	public void setIngredients(Set<Ingredient> ingredients) {
 		this.ingredients = ingredients;
 	}
-
+	
 	public EDifficulty getDifficulty() {
 		return difficulty;
 	}
