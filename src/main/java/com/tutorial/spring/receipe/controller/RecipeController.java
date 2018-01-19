@@ -4,9 +4,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.tutorial.spring.receipe.repositories.IRecipseRepository;
+import com.tutorial.spring.receipe.service.IRecipeService;
 
 /**
+ * A simple spring mvc controller to serve the recipes.html page
+ * and provide the necessary data through the service
  * 
  * @author Bastian Bräunel
  *
@@ -14,16 +16,21 @@ import com.tutorial.spring.receipe.repositories.IRecipseRepository;
 @Controller
 public class RecipeController{
 
-	private IRecipseRepository recipseRepository;
-
-	public RecipeController(IRecipseRepository recipseRepository) {
-		this.recipseRepository = recipseRepository;
+	private IRecipeService recipeService;
+	
+	/**
+	 * Constructor based injection of the service
+	 * 
+	 * @param recipeService		the service injected by spring
+	 */
+	public RecipeController(IRecipeService recipeService) {
+		this.recipeService = recipeService;
 	}
 
 	@RequestMapping("/recipes")
 	public String findAllRecipies(Model model) {
 		
-		model.addAttribute("allRecipes", recipseRepository.findAll());
+		model.addAttribute("allRecipes", recipeService.getRecipes());
 		
 		return "recipes";
 	}
