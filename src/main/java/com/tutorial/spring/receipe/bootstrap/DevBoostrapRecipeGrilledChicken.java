@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 import com.tutorial.spring.receipe.model.Category;
 import com.tutorial.spring.receipe.model.Ingredient;
@@ -17,12 +18,15 @@ import com.tutorial.spring.receipe.repositories.ICategoryRepository;
 import com.tutorial.spring.receipe.repositories.IRecipseRepository;
 import com.tutorial.spring.receipe.repositories.IUnitOfMeasureRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * Bootstrap calls to add a full recipe
  * 
  * @author Bastian Bräunel
  *
  */
+@Slf4j
 @Component
 public class DevBoostrapRecipeGrilledChicken extends DevBoostrapRecipe
 		implements ApplicationListener<ContextRefreshedEvent> {
@@ -39,13 +43,13 @@ public class DevBoostrapRecipeGrilledChicken extends DevBoostrapRecipe
 	public DevBoostrapRecipeGrilledChicken(ICategoryRepository categoryRepository, IRecipseRepository recipeRepository,
 			IUnitOfMeasureRepository unitRepository) {
 		super(categoryRepository, recipeRepository, unitRepository);
-		
+		log.debug(this.getClass().toString() + ": loading boostrap data.");
 		chickenRecipe = new Recipe();
 	}
 
 	@Override
 	public void onApplicationEvent(ContextRefreshedEvent event) {
-
+		
 		// Find all units from the db
 		Optional<UnitOfMeasure> piece = loadUnitFromDB("Piece");
 		Optional<UnitOfMeasure> tablespoon = loadUnitFromDB("Tablespoon");

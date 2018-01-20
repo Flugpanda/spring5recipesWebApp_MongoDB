@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.tutorial.spring.receipe.service.IRecipeService;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * A simple spring mvc controller to serve the recipes.html page
  * and provide the necessary data through the service
@@ -13,6 +15,7 @@ import com.tutorial.spring.receipe.service.IRecipeService;
  * @author Bastian Bräunel
  *
  */
+@Slf4j
 @Controller
 public class RecipeController{
 
@@ -29,7 +32,7 @@ public class RecipeController{
 
 	@RequestMapping("/recipes")
 	public String findAllRecipies(Model model) {
-		
+		log.debug(this.getClass().toString() + ": loading recipes web page.");
 		model.addAttribute("allRecipes", recipeService.getRecipes());
 		
 		return "recipes";

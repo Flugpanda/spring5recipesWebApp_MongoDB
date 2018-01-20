@@ -8,11 +8,14 @@ import com.tutorial.spring.receipe.repositories.ICategoryRepository;
 import com.tutorial.spring.receipe.repositories.IRecipseRepository;
 import com.tutorial.spring.receipe.repositories.IUnitOfMeasureRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * 
  * @author Bastian Bräunel
  *
  */
+@Slf4j
 public class DevBoostrapRecipe {
 	
 	protected ICategoryRepository categoryRepository;
@@ -40,7 +43,9 @@ public class DevBoostrapRecipe {
 	 * @throws Exception	throws exception whenever the unit with the given description could not be found 
 	 */
 	protected Optional<UnitOfMeasure> loadUnitFromDB(String description) throws IllegalArgumentException{
+		log.debug(this.getClass().toString() +  ": Try to load a UnitOfMeasure [ " + description + " ] from the database.");
 		Optional<UnitOfMeasure> tmp = unitRepository.findByUnitDescription(description);
+		log.debug(this.getClass().toString() +  ": UnitOfMeasure [ " + description + " ] found.");
 		return tmp;
 	}
 	
@@ -52,7 +57,9 @@ public class DevBoostrapRecipe {
 	 * @throws Exception	throws exception whenever the unit with the given description could not be found 
 	 */
 	protected Optional<Category> loadCategoryFromDB(String description) throws IllegalArgumentException{
+		log.debug(this.getClass().toString() +  ": Try to load a Category [ " + description + " ] from the database.");
 		Optional<Category> tmp = categoryRepository.findByDescription(description);
+		log.debug(this.getClass().toString() +  ": Category [ " + description + " ] found.");
 		return tmp;
 	}
 	

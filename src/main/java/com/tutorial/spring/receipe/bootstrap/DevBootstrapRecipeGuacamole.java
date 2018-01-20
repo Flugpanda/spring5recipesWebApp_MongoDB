@@ -17,12 +17,15 @@ import com.tutorial.spring.receipe.repositories.ICategoryRepository;
 import com.tutorial.spring.receipe.repositories.IRecipseRepository;
 import com.tutorial.spring.receipe.repositories.IUnitOfMeasureRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * Bootstrap calls to add a full recipe
  * 
  * @author Bastian Bräunel
  *
  */
+@Slf4j
 @Component
 public class DevBootstrapRecipeGuacamole extends DevBoostrapRecipe  implements ApplicationListener<ContextRefreshedEvent> {
 
@@ -30,8 +33,8 @@ public class DevBootstrapRecipeGuacamole extends DevBoostrapRecipe  implements A
 
 	public DevBootstrapRecipeGuacamole(ICategoryRepository categoryRepository, IRecipseRepository recipeRepository,
 			IUnitOfMeasureRepository unitRepository) {
-
 		super(categoryRepository, recipeRepository, unitRepository);
+		log.debug(this.getClass().toString() + ": loading boostrap data.");
 		guacamoleRecipe = new Recipe();
 	}
 
