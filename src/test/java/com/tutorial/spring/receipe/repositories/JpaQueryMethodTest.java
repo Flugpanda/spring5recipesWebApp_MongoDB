@@ -1,9 +1,11 @@
 package com.tutorial.spring.receipe.repositories;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.Optional;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,18 +36,27 @@ public class JpaQueryMethodTest {
 
 	private Optional<UnitOfMeasure> mesurementUnit;
 	private Optional<Category> category;
+	
+	private String categoryDescription = "German";
+	private String unitDescription = "Gram";
 
+	@Before
+	public void setUp() {
+		categoryDescription = "German";
+		unitDescription = "Gram";
+		
+		category = categoryRepository.findByDescription(categoryDescription);
+		mesurementUnit = unitOfMeasureRepository.findByUnitDescription(unitDescription);
+	}
+	
 	@Test
 	public void test() {
 		
-		category = categoryRepository.findByDescription("German");
-		mesurementUnit = unitOfMeasureRepository.findByUnitDescription("Gram");
-
 		assertNotNull("The category was not found.", category);
+		assertEquals(categoryDescription, category.get().getDescription());
+		
 		assertNotNull("The mesurement unit was not found to.", mesurementUnit);
+		assertEquals(unitDescription, mesurementUnit.get().getUom());
 
-		System.out.println(category.toString());
-		System.out.println(mesurementUnit.toString());
 	}
-
 }
