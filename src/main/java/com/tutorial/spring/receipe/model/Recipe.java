@@ -41,7 +41,7 @@ public class Recipe {
 	private String servings;
 	private String source;
 	private String url;
-	
+
 	@Lob
 	private String directions;
 
@@ -68,27 +68,28 @@ public class Recipe {
 
 	// Define the many to many relationship and the join table
 	@ManyToMany
-	@JoinTable(name = "recipe_category", 
-				joinColumns = @JoinColumn(name = "recipe_id"),
-				inverseJoinColumns = @JoinColumn(name = "category_id"))
+	@JoinTable(name = "recipe_category", joinColumns = @JoinColumn(name = "recipe_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
 	private Set<Category> categories = new HashSet<>();
 
 	/**
-	 * A convenience method to do the bidirectional mapping for the ingredients and the recipes
+	 * A convenience method to do the bidirectional mapping for the ingredients and
+	 * the recipes
 	 * 
-	 * @param ingredient	the ingredient to ad
-	 * @return				the recipe
+	 * @param ingredient
+	 *            the ingredient to ad
+	 * @return the recipe
 	 */
 	public Recipe addIngredient(Ingredient ingredient) {
 		ingredient.setRecipe(this);
 		this.ingredients.add(ingredient);
 		return this;
 	}
-	
+
 	/**
-	 * Add the note to the recipe and do the bidirectional mapping 
+	 * Add the note to the recipe and do the bidirectional mapping
 	 * 
-	 * @param note		the note to add
+	 * @param note
+	 *            the note to add
 	 */
 	public void setNotes(Notes note) {
 		this.note = note;
