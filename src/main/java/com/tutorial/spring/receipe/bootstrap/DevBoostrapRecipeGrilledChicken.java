@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 import com.tutorial.spring.receipe.model.Category;
 import com.tutorial.spring.receipe.model.Ingredient;
