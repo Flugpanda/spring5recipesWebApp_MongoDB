@@ -1,10 +1,14 @@
 package com.tutorial.spring.receipe.controller;
 
+import static org.hamcrest.CoreMatchers.startsWith;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -13,7 +17,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MockMvcBuilder;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
 
 import com.tutorial.spring.receipe.model.Recipe;
@@ -74,5 +82,20 @@ public class RecipeControllerTest {
 		verify(model, times(1)).addAttribute(eq(expectedAttributeName), argumentCaptor.capture());
 		Set<Recipe> setInController = argumentCaptor.getValue();
 		assertEquals(setInController, service.getRecipes());
+	}
+	
+	@Test
+	public void testShowRecipe() throws Exception {
+		Recipe recipe = new Recipe();
+		recipe.setId(1l);
+		
+		// setup the spring mvc mock 
+		MockMvc mockMvc = MockMvcBuilders.standaloneSetup(recipeController).build();
+		
+		when(service.findById(Mockito.anyLong())).thenReturn(recipe);
+		
+		mockMvc.perform(get("/recipes/show/1"))
+		.andExpect(status().isOk());
+//		.andExpect(view().name("/recipes/show"));
 	}
 }

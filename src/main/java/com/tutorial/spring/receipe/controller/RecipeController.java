@@ -2,6 +2,7 @@ package com.tutorial.spring.receipe.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.tutorial.spring.receipe.service.IRecipeService;
@@ -32,10 +33,17 @@ public class RecipeController{
 
 	@RequestMapping("/recipes")
 	public String findAllRecipies(Model model) {
-		log.debug(this.getClass().toString() + ": loading recipes web page.");
+		log.debug(this.getClass().toString() + ": loading recipes webpage.");
 		model.addAttribute("allRecipes", recipeService.getRecipes());
 		
 		return "recipes";
 	}
 
+	@RequestMapping("/recipes/show/{id}")
+	public String showById(Model model, @PathVariable String id) {
+		log.debug(this.getClass().toString() + ":showById - Loading the recipe gow webpage.");
+		model.addAttribute("recipe", recipeService.findById(new Long(id)));
+		
+		return "recipes/show";
+	}
 }

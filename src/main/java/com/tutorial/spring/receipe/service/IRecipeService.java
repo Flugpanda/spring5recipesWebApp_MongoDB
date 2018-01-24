@@ -12,4 +12,5 @@ import com.tutorial.spring.receipe.model.Recipe;
 public interface IRecipeService {
 	
 	public Set<Recipe> getRecipes();
+	public Recipe findById(Long id);
 }
