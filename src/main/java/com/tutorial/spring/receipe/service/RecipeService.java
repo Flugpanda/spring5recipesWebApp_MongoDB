@@ -1,14 +1,22 @@
 package com.tutorial.spring.receipe.service;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
+
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 
+import com.tutorial.spring.receipe.commands.RecipeCommand;
+import com.tutorial.spring.receipe.converters.RecipeCommandToRecipe;
+import com.tutorial.spring.receipe.converters.RecipeToRecipeCommand;
 import com.tutorial.spring.receipe.model.Recipe;
 import com.tutorial.spring.receipe.repositories.IRecipseRepository;
 
+import lombok.extern.slf4j.Slf4j;
 import net.bytebuddy.asm.Advice.This;
 
 /**
@@ -17,10 +25,14 @@ import net.bytebuddy.asm.Advice.This;
  * @author Bastian Bräunel
  *
  */
+@Slf4j
 @Service
 public class RecipeService implements IRecipeService {
 
 	private final IRecipseRepository recipseRepository;
+	
+	private final RecipeCommandToRecipe commandToRecipe;
+	private final RecipeToRecipeCommand recipeToCommand;
 
 	/**
 	 * 
@@ -28,8 +40,10 @@ public class RecipeService implements IRecipeService {
 	 * 
 	 * @param recipseRepository
 	 */
-	public RecipeService(IRecipseRepository recipseRepository) {
+	public RecipeService(IRecipseRepository recipseRepository, RecipeCommandToRecipe commandToRecipe, RecipeToRecipeCommand recipeToCommand) {
 		this.recipseRepository = recipseRepository;
+		this.commandToRecipe = commandToRecipe;
+		this.recipeToCommand = recipeToCommand;
 	}
 
 	/**
@@ -69,4 +83,21 @@ public class RecipeService implements IRecipeService {
 		return recipe;
 	}
 
+	/**
+	 * Convert a RecipeCommand to a Recipe object and persist it
+	 * 
+	 * @param recipeCommand		the command object of the recipe
+	 */
+	@Override
+	@Transactional
+	public RecipeCommand saveRecipeCommand(RecipeCommand recipeCommand) {
+		Recipe detatchedRecipe = commandToRecipe.convert(recipeCommand);
+		
+		detatchedRecipe = recipseRepository.save(detatchedRecipe);
+		log.debug(this.getClass().toString() +":saveRecipeCommand - Saved recipe with id [" + detatchedRecipe.getId() + "]");
+				
+		return recipeToCommand.convert(detatchedRecipe);
+	}
+
+	
 }

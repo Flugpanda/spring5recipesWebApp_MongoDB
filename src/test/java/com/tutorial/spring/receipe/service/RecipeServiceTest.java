@@ -1,14 +1,10 @@
 package com.tutorial.spring.receipe.service;
 
-import static org.hamcrest.CoreMatchers.any;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.mockito.ArgumentMatchers.any;
-
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -20,6 +16,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import com.tutorial.spring.receipe.converters.RecipeCommandToRecipe;
+import com.tutorial.spring.receipe.converters.RecipeToRecipeCommand;
 import com.tutorial.spring.receipe.model.Recipe;
 import com.tutorial.spring.receipe.repositories.IRecipseRepository;
 
@@ -37,6 +35,10 @@ public class RecipeServiceTest {
 	
 	@Mock
 	private IRecipseRepository recipeRepository;
+	@Mock
+	private RecipeCommandToRecipe commandToRecipe;
+	@Mock
+	private RecipeToRecipeCommand recipeToCommand;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -44,7 +46,7 @@ public class RecipeServiceTest {
 		MockitoAnnotations.initMocks(this);
 		
 		// creating a new RecipeService and using the mock of the repository
-		recipeService = new RecipeService(recipeRepository);
+		recipeService = new RecipeService(recipeRepository, commandToRecipe, recipeToCommand);
 				
 		// create a recipe object that shall be used by Mockito
 		mockRecipe = new Recipe();
