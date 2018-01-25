@@ -70,17 +70,13 @@ public class RecipeService implements IRecipeService {
 	 */
 	@Override
 	public Recipe findById(Long id) {
-		Recipe recipe = new Recipe();
-		recipe.setId(-1l);
-		recipe.setDescription("Recipe not found");
+		Optional<Recipe> recipe = recipseRepository.findById(id);
 		
-		try {
-			recipe = recipseRepository.findById(id).get();
-		} catch (Exception e) {
-			System.err.println(This.class.toString() + ": Recipe with the id [" + id + "] was not found." );
-			System.err.println("\t" + e.getMessage());
+		if (!recipe.isPresent()) {
+			throw new IllegalAccessError("The recipe with the id [" + id + "] was not found in the database.");
 		}
-		return recipe;
+		
+		return recipe.get();
 	}
 
 	/**
@@ -97,6 +93,19 @@ public class RecipeService implements IRecipeService {
 		log.debug(this.getClass().toString() +":saveRecipeCommand - Saved recipe with id [" + detatchedRecipe.getId() + "]");
 				
 		return recipeToCommand.convert(detatchedRecipe);
+	}
+
+	/**
+	 * Look up a RecipeCommand by id
+	 * 
+	 * @return		The RecipeCommand with the given id
+	 */
+	@Override
+	@Transactional
+	public RecipeCommand findRecipeCommandById(Long id) {
+		RecipeCommand command = recipeToCommand.convert(findById(id));
+		
+		return command;
 	}
 
 	

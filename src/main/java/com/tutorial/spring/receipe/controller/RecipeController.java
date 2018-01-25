@@ -76,7 +76,7 @@ public class RecipeController{
 	@RequestMapping("/recipes/{id}/update")
 	public String updateRecipe(Model model, @PathVariable String id) {
 		log.debug(this.getClass().toString() + ":updateRecipe - Loading the webpage /recipes/createUpdateRecipes.html");
-		model.addAttribute("recipe", recipeService.findById(Long.valueOf(id)));
+		model.addAttribute("recipe", recipeService.findRecipeCommandById(Long.valueOf(id)));
 		
 		return "recipes/createUpdateRecipes";
 	}
