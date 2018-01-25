@@ -56,7 +56,7 @@ public class RecipeController{
 		log.debug(this.getClass().toString() + ":createNewRecipe - Loading the webpage /recipes/addRecipe.html");
 		model.addAttribute("recipe", new RecipeCommand());
 
-		return "recipes/createUpdateRecipe";
+		return "recipes/createUpdateRecipes";
 	}
 	
 	/**
