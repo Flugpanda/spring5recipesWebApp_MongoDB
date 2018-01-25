@@ -35,6 +35,9 @@ public class RecipeController{
 		this.recipeService = recipeService;
 	}
 
+	/**
+	 * List all recipes from the database
+	 */
 	@RequestMapping("/recipes")
 	public String findAllRecipies(Model model) {
 		log.debug(this.getClass().toString() + ": loading recipes webpage.");
@@ -43,7 +46,11 @@ public class RecipeController{
 		return "recipes";
 	}
 
-	@RequestMapping("/recipes/show/{id}")
+	/**
+	 * Display the recipe with the given id from the url in a new web site,
+	 * using REST style url formatting 
+	 */
+	@RequestMapping("/recipes/{id}/show")
 	public String showById(Model model, @PathVariable String id) {
 		log.debug(this.getClass().toString() + ":showById - Loading the webpage recipes/show.html.");
 		model.addAttribute("recipe", recipeService.findById(new Long(id)));
@@ -51,6 +58,9 @@ public class RecipeController{
 		return "recipes/show";
 	}
 	
+	/**
+	 * Open a web site to create a new recipe
+	 */
 	@RequestMapping("/recipes/new")
 	public String createNewRecipe(Model model) {
 		log.debug(this.getClass().toString() + ":createNewRecipe - Loading the webpage /recipes/addRecipe.html");
@@ -60,6 +70,21 @@ public class RecipeController{
 	}
 	
 	/**
+	 * This method will open a web site to manipulate a recipe,
+	 * using REST style url formatting.
+	 */
+	@RequestMapping("/recipes/{id}/update")
+	public String updateRecipe(Model model, @PathVariable String id) {
+		log.debug(this.getClass().toString() + ":updateRecipe - Loading the webpage /recipes/createUpdateRecipes.html");
+		model.addAttribute("recipe", recipeService.findById(Long.valueOf(id)));
+		
+		return "recipes/createUpdateRecipes";
+	}
+	
+	/**
+	 * Save a new recipe and open the web site to show the newly created recipe
+	 * 
+	 * 
 	 * @ModelAttribute tells Spring to bind the inputs to an object from the type {@link RecipeCommand}
 	 * 
 	 * @RequestMapping(name = "recipe", method = RequestMethod.POST)
@@ -67,12 +92,13 @@ public class RecipeController{
 	 */
 	//@RequestMapping(name = "recipe", method = RequestMethod.POST)
 	@PostMapping
-	@RequestMapping("recipe")
+	@RequestMapping("recipeToSave")
 	public String saveOrUpdate(@ModelAttribute RecipeCommand command) {
 		RecipeCommand saveCommand = recipeService.saveRecipeCommand(command);
+		log.debug(this.getClass().toString() + ":saveOrUpdate - Loading the webpage /recipes/show/" + command.getId() + ".html");
 		
 		// redirect: 	tells Spring MVC to redirect to a specific url
 		// appending the id of the newly created recipe and open the recipe show web site of this recipe
-		return "redirect:/recipes/show/" + saveCommand.getId();
+		return "redirect:/recipes/" + saveCommand.getId() + "/show";
 	}
 }

@@ -12,7 +12,9 @@
 	<div class="container-fluid" style="margin-top: 20px">
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
-				<form th:object="${recipe}" th:action="@{/recipe/}">
+				<!-- Create an object through Timeleaf -->
+				<!-- define it's name and the action that will be handled by the RecipeController -->
+				<form th:object="${recipe}" th:action="@{/recipeToSave/}">
 					<!-- The ID of the recipe will be created through the persistence and should never be edited manually -->
 					<input type="hidden" th:field="*{id}" />
 					
