@@ -37,6 +37,9 @@ public class IngredientsToIngredientsCommand implements Converter<Ingredient, In
 		}
 		final IngredientsCommand command = new IngredientsCommand();
 		command.setId(source.getId());
+        if (source.getRecipe() != null) {
+            command.setRecipeId(source.getRecipe().getId());
+        }
 		command.setAmount(source.getAmount());
 		command.setDescription(source.getDescription());
 		command.setUnitOfMeas(unitCoverter.convert(source.getUnitOfMeas()));
