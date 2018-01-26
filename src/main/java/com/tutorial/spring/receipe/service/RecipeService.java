@@ -1,7 +1,5 @@
 package com.tutorial.spring.receipe.service;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
-
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
