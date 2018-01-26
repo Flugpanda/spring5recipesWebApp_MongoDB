@@ -34,12 +34,14 @@
 										<th>ID</th>
 										<th>Recipe Description</th>
 										<th>Link</th>
+										<th>Delete</th>
 									</tr>
 								</thead>
 								<tr th:each="recipe: ${allRecipes}">
 									<td th:text="${recipe.id}">123</td>
 									<td th:text="${recipe.description}">Recipe Title</td>
-									<td><a href="#"	th:href="@{'/recipes/' + ${recipe.id} + '/show'}">Link</a></td>
+									<td><a href="#"	th:href="@{'/recipes/' + ${recipe.id} + '/show'}">View</a></td>
+									<td><a href="#" th:href="@{'/recipes/' + ${recipe.id} + '/delete'}">Delete</a></td>
 								</tr>
 							</table>
 						</div>

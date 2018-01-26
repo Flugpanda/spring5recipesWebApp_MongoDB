@@ -108,5 +108,11 @@ public class RecipeService implements IRecipeService {
 		return command;
 	}
 
-	
+	/**
+	 * Delete a recipe from the database
+	 */
+	@Override
+	public void deleteById(Long id) {
+		recipseRepository.deleteById(id);		
+	}	
 }
