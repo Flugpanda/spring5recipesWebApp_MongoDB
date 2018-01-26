@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.tutorial.spring.receipe.commands.RecipeCommand;
 import com.tutorial.spring.receipe.model.Recipe;
+import com.tutorial.spring.receipe.service.IIngredientService;
 import com.tutorial.spring.receipe.service.IRecipeService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -22,14 +23,16 @@ import lombok.extern.slf4j.Slf4j;
 public class IngredientsController {
 
 	private IRecipeService recipeService;
+	private IIngredientService ingredientService;
 
 	/**
 	 * default contructor
 	 * 
 	 * @param recipeService		will be injected by the Spring framework
 	 */
-	public IngredientsController(IRecipeService recipeService) {
+	public IngredientsController(IRecipeService recipeService, IIngredientService ingredientService) {
 		this.recipeService = recipeService;
+		this.ingredientService = ingredientService;
 	}
 	
 	/**
@@ -46,4 +49,12 @@ public class IngredientsController {
 
 		return "/recipes/ingredients/listIngredients";
 	}
+	
+    @GetMapping
+    @RequestMapping("recipes/{recipeId}/ingredients/{id}/show")
+    public String showRecipeIngredient(@PathVariable String recipeId,
+                                       @PathVariable String id, Model model){
+        model.addAttribute("ingredient", ingredientService.findByRecipeIdAndIngredientId(Long.valueOf(recipeId), Long.valueOf(id)));
+        return "recipes/ingredients/show";
+    }
 }
