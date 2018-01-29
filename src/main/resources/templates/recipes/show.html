@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sd="http://www.thymeleaf.org/spring-data">
 <head>
 <meta charset="UTF-8" />
 <title>Show Recipe</title>
@@ -101,7 +101,7 @@
 								<div class="col-10"></div> <!-- just for spacing -->
 								<div class="col-2">
 <!-- 									<button type="submit" class="btn btn-secondary">Edit</button> -->
-										<a class="btn btn-secondary" href="#" th:href="@{'/recipes/' + ${recipe.id} + '/ingredients'}" >Link</a>
+										<a class="btn btn-secondary" href="#" th:href="@{'/recipes/' + ${recipe.id} + '/ingredients'}" >Edit</a>
 								</div>
 							</div>
 						</div>

@@ -1,9 +1,14 @@
 package com.tutorial.spring.receipe.converters;
 
+import java.util.Comparator;
+import java.util.Set;
+import java.util.TreeSet;
+
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
+import com.tutorial.spring.receipe.commands.IngredientsCommand;
 import com.tutorial.spring.receipe.commands.RecipeCommand;
 import com.tutorial.spring.receipe.model.Category;
 import com.tutorial.spring.receipe.model.Ingredient;
@@ -56,14 +61,28 @@ public class RecipeToRecipeCommand implements Converter<Recipe, RecipeCommand>{
 		command.setDifficulty(source.getDifficulty());
 		command.setNote(notesConverter.convert(source.getNote()));
 		
+		// check if any category is set
 		if (source.getCategories() != null && source.getCategories().size() > 0) {
 			source.getCategories().forEach((Category category) -> command.getCategories().add(categoryConverter.convert(category)));
 		}
 		
+		// check if any ingredient is set
 		if (source.getIngredients() != null && source.getIngredients().size() > 0) {
+			
+			// creating a small comparator to output a sorted set of IngredientsCommands for the view
+			Set<IngredientsCommand> sortedIngredients = new TreeSet<>(new Comparator<IngredientsCommand>() {
+				@Override
+				public int compare(IngredientsCommand o1, IngredientsCommand o2) {
+					return o1.getId().compareTo(o2.getId());
+				}
+			});
+			
 			for (Ingredient ingredient : source.getIngredients()) {
-					command.getIngredients().add(ingredientsConverter.convert(ingredient));
+				// add the converted item so the sorted set
+				sortedIngredients.add(ingredientsConverter.convert(ingredient));
 			}
+			// assign the set of the sorted IngredientsCommands to the command object 
+			command.setIngredients(sortedIngredients);
 		}
 		
 		return command;

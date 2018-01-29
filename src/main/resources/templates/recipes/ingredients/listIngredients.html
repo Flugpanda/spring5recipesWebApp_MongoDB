@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sd="http://www.thymeleaf.org/spring-data">
 <head>
     <meta charset="UTF-8"/>
     <title>List Ingredients</title>
@@ -24,7 +24,7 @@
                         <table class="table table-hover ">
                             <thead class="thead-inverse">
                             <tr>
-                                <th>ID</th>
+                                <th class="sorted" sd:pagination-sort="id">ID</th>
                                 <th>Amount</th>
                                 <th>Description</th>
                                 <th>View</th>
