@@ -113,6 +113,8 @@ public class IngredientService implements IIngredientService {
 			}
 		} else {
 			// ingredient doesn't exist -> add new Ingredient to recipe
+			Ingredient ingredient = commandToIngredients.convert(command);
+			ingredient.setRecipe(recipe);
 			recipe.addIngredient(commandToIngredients.convert(command));
 		}
 		
@@ -120,10 +122,24 @@ public class IngredientService implements IIngredientService {
 		recipe = recipseRepository.save(recipe);
 		
 		// get the saved ingredient from the ingredient of the persisted recipe
-		Ingredient savedIngredient = recipe.getIngredients().stream()
-				.filter(recipeIngredient -> recipeIngredient.getId().equals(command.getId())).findFirst().get();
+		Optional<Ingredient> savedIngredientOptional = recipe.getIngredients().stream()
+				.filter(recipeIngredient -> recipeIngredient.getId().equals(command.getId())).findFirst();
 		
-		return ingredientsToCommand.convert(savedIngredient);
+		// check if the ingredient is present after persisting
+		// if there is no id set in the ingredient, look for the other values
+		if (!savedIngredientOptional.isPresent()) {
+			savedIngredientOptional = recipe.getIngredients().stream()
+					.filter(recipeIngredient -> recipeIngredient.getDescription().equals(command.getDescription()))
+					.filter(recipeIngredient -> recipeIngredient.getAmount().equals(command.getAmount()))
+					.filter(recipeIngredient -> recipeIngredient.getUnitOfMeas().getId().equals(command.getUnitOfMeas().getId()))
+					.findFirst();
+		}
+		
+		if (!savedIngredientOptional.isPresent()) {
+			throw new RuntimeException("Not able to save the IngredientCommand: " + command.toString());
+		}
+		
+		return ingredientsToCommand.convert(savedIngredientOptional.get());
 	}
 
 }

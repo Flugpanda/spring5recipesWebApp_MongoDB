@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.tutorial.spring.receipe.commands.IngredientsCommand;
 import com.tutorial.spring.receipe.commands.RecipeCommand;
+import com.tutorial.spring.receipe.commands.UnitOfMeasureCommand;
+import com.tutorial.spring.receipe.model.Ingredient;
 import com.tutorial.spring.receipe.service.IIngredientService;
 import com.tutorial.spring.receipe.service.IRecipeService;
 import com.tutorial.spring.receipe.service.UnitOfMeasureService;
@@ -98,5 +100,29 @@ public class IngredientsController {
         log.debug(this.getClass().toString() + ":saveRecipeIngredient - saved ingredient with the id [" + savedCommand.getId() + "]");
     	
     	return "redirect:/recipes/" + savedCommand.getRecipeId() + "/ingredients/" + savedCommand.getId() + "/show";
+    }
+    
+    @GetMapping
+    @RequestMapping("/recipes/{recipeId}/ingredients/new")
+    public String createRecipeIngredient(@PathVariable String recipeId, Model model) {
+    	RecipeCommand recipeCommand = recipeService.findRecipeCommandById(Long.valueOf(recipeId));
+    	
+    	if (recipeCommand == null) {
+    		throw new IllegalArgumentException(this.getClass().toString() + ":createRecipeIngredient - Recipe was not found in db!");
+		}
+    	
+    	log.debug(this.getClass().toString() + ":createRecipeIngredient - Create new ingredient for the recipe [" + recipeId + "].");
+    	
+    	IngredientsCommand ingredientsCommand = new IngredientsCommand();
+    	// init RecipeCommand
+    	ingredientsCommand.setRecipeId(Long.valueOf(recipeCommand.getId()));
+    	ingredientsCommand.setRecipe(recipeCommand);
+    	// init UnitOfMeasureCommand
+    	ingredientsCommand.setUnitOfMeas(new UnitOfMeasureCommand());
+    	
+    	model.addAttribute("ingredient", ingredientsCommand);
+    	model.addAttribute("uomList", unitOfMeasureService.findAllUnits());
+
+    	return "recipes/ingredients/ingredientForm";
     }
 }

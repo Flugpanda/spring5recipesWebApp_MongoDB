@@ -19,7 +19,6 @@
                     <h1 class="panel-title">Ingredients</h1>
                 </div>
                 <div class="panel-body">
-
                     <div class="table-responsive" th:if="${not #lists.isEmpty(recipe.ingredients)}">
                         <table class="table table-hover ">
                             <thead class="thead-inverse">
@@ -58,6 +57,12 @@
                             </tr>
                         </table>
                     </div>
+        			<div class="row">
+						<div class="col-10"></div> <!-- just for spacing -->
+						<div class="col-2">
+							<a class="btn btn-success" href="#" th:href="@{'/recipes/' + ${recipe.id} + '/ingredients/new'}" >Add</a>
+						</div>
+					</div>
                 </div>
             </div>
         </div>
