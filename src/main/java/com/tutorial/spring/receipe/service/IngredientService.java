@@ -11,6 +11,7 @@ import com.tutorial.spring.receipe.converters.IngredientsToIngredientsCommand;
 import com.tutorial.spring.receipe.model.Ingredient;
 import com.tutorial.spring.receipe.model.Recipe;
 import com.tutorial.spring.receipe.model.UnitOfMeasure;
+import com.tutorial.spring.receipe.repositories.IIngredientReoisitory;
 import com.tutorial.spring.receipe.repositories.IRecipseRepository;
 import com.tutorial.spring.receipe.repositories.IUnitOfMeasureRepository;
 
@@ -28,7 +29,8 @@ public class IngredientService implements IIngredientService {
 
 	private final IRecipseRepository recipseRepository;
 	private final IUnitOfMeasureRepository unitOfMeasureRepository;
-
+	private final IIngredientReoisitory ingredientReoisitory;
+	
 	private final IngredientsToIngredientsCommand ingredientsToCommand;
 	private final IngredientsCommandToIngredients commandToIngredients;
 
@@ -41,14 +43,17 @@ public class IngredientService implements IIngredientService {
 	 * @param commandToIngredients
 	 */
 	public IngredientService(IRecipseRepository recipseRepository, IUnitOfMeasureRepository unitOfMeasureRepository,
-			IngredientsToIngredientsCommand ingredientsToCommand,
-			IngredientsCommandToIngredients commandToIngredients) {
+			IngredientsToIngredientsCommand ingredientsToCommand,IngredientsCommandToIngredients commandToIngredients, IIngredientReoisitory ingredientReoisitory) {
 		this.recipseRepository = recipseRepository;
 		this.unitOfMeasureRepository = unitOfMeasureRepository;
 		this.ingredientsToCommand = ingredientsToCommand;
 		this.commandToIngredients = commandToIngredients;
+		this.ingredientReoisitory = ingredientReoisitory;
 	}
 
+	/**
+	 * Search for a specific recipe from a recipe
+	 */
 	@Override
 	public IngredientsCommand findByRecipeIdAndIngredientId(Long recipeId, Long ingredientId) {
 
@@ -140,6 +145,35 @@ public class IngredientService implements IIngredientService {
 		}
 		
 		return ingredientsToCommand.convert(savedIngredientOptional.get());
+	}
+
+	@Override
+	public void deleteIngredientFromRecipe(Long recipeId, Long ingredientId) {
+		
+		Optional<Recipe> recipeOptional = recipseRepository.findById(recipeId);
+		Recipe recipe;
+		
+		if (!recipeOptional.isPresent()) {
+			throw new IllegalArgumentException("The recipe  with the id ["	+ recipeId + "] was not found of db.");
+		}else {
+			recipe = recipeOptional.get();
+		}
+		
+		Optional<Ingredient> ingredientOptional =  ingredientReoisitory.findById(ingredientId);
+		Ingredient ingredient;
+			
+		if (!ingredientOptional.isPresent()) {
+			throw new IllegalArgumentException("The ingredient  with the id ["	+ ingredientId + "] was not found of db.");
+		}else {
+			ingredient = ingredientOptional.get();
+		}
+		
+		// remove ingredient from the recipe
+		recipe.getIngredients().remove(ingredient);
+		recipe = recipseRepository.save(recipe);
+		
+		// delete the ingredient from the db
+		ingredientReoisitory.deleteById(ingredientId);
 	}
 
 }
