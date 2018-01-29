@@ -43,7 +43,7 @@ public class IngredientService implements IIngredientService {
 	 * @param commandToIngredients
 	 */
 	public IngredientService(IRecipseRepository recipseRepository, IUnitOfMeasureRepository unitOfMeasureRepository,
-			IngredientsToIngredientsCommand ingredientsToCommand,IngredientsCommandToIngredients commandToIngredients, IIngredientReoisitory ingredientReoisitory) {
+			IngredientsToIngredientsCommand ingredientsToCommand,IIngredientReoisitory ingredientReoisitory, IngredientsCommandToIngredients commandToIngredients) {
 		this.recipseRepository = recipseRepository;
 		this.unitOfMeasureRepository = unitOfMeasureRepository;
 		this.ingredientsToCommand = ingredientsToCommand;

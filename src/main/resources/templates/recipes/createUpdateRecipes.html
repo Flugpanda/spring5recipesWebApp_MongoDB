@@ -55,14 +55,20 @@
 										<label>Cooktime:</label> <input type="text" class="form-control" th:field="*{cookTime}" />
 									</div>
 <!-- Difficulty -->
-									<div class="col-md-3 form-group">
-										<label>Difficulty:</label> 
-										<select class="form-control">
-											<option>Easy</option>
-											<option>Medium</option>
-											<option>Hard</option>
-										</select>
-									</div>
+                                <div class="col-md-3 form-group">
+                                    <label>Difficulty:</label>
+                                    <select class="form-control" th:field="*{difficulty}">
+                                        <option th:each="difficultyValue : ${T(com.tutorial.spring.receipe.model.enums.EDifficulty).values()}"
+                                                th:value="${difficultyValue.name()}"
+                                                th:text="${difficultyValue.name()}"
+                                        >val</option>
+                                    </select>
+                                    <select class="form-control" th:remove="all">
+                                        <option>Easy</option>
+                                        <option>Medium</option>
+                                        <option>Hard</option>
+                                    </select>
+                                </div>
 								</div>
 								<div class="row">
 <!-- Servings -->

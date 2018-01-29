@@ -24,6 +24,7 @@ import com.tutorial.spring.receipe.converters.UnitOfMeasureToUnitOfMeasureComman
 import com.tutorial.spring.receipe.model.Ingredient;
 import com.tutorial.spring.receipe.model.Recipe;
 import com.tutorial.spring.receipe.model.UnitOfMeasure;
+import com.tutorial.spring.receipe.repositories.IIngredientReoisitory;
 import com.tutorial.spring.receipe.repositories.IRecipseRepository;
 import com.tutorial.spring.receipe.repositories.IUnitOfMeasureRepository;
 
@@ -47,6 +48,8 @@ public class IngredientServiceTest {
 	@Mock
 	private IUnitOfMeasureRepository unitOfMeasureRepository;
 	@Mock
+	private IIngredientReoisitory ingredientReoisitory;
+	@Mock
 	private IngredientsToIngredientsCommand ingredientsToCommand;
 	@Mock
 	private IngredientsCommandToIngredients commandToIngredients;
@@ -59,7 +62,7 @@ public class IngredientServiceTest {
 		ingredientsToCommand = new IngredientsToIngredientsCommand(new UnitOfMeasureToUnitOfMeasureCommand());
 		commandToIngredients = new IngredientsCommandToIngredients(new UnitOfMeasureCommandToUnitOfMeasure());
 		
-		ingredientService = new IngredientService(recipeRepository, unitOfMeasureRepository, ingredientsToCommand, commandToIngredients);
+		ingredientService = new IngredientService(recipeRepository, unitOfMeasureRepository, ingredientsToCommand,ingredientReoisitory, commandToIngredients);
 		
 		UnitOfMeasure teaspoon = new UnitOfMeasure();
 		UnitOfMeasure dash = new UnitOfMeasure();
