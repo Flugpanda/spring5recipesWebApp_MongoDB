@@ -40,8 +40,7 @@ public class RecipeController{
 	 * 
 	 * @GetMapping		tell spring the http-get is the only valid method to call this function
 	 */
-	@GetMapping
-	@RequestMapping("/recipes")
+	@GetMapping("/recipes")
 	public String findAllRecipies(Model model) {
 		log.debug(this.getClass().toString() + ": loading recipes webpage.");
 		model.addAttribute("allRecipes", recipeService.getRecipes());
@@ -53,8 +52,7 @@ public class RecipeController{
 	 * Display the recipe with the given id from the url in a new web site,
 	 * using REST style url formatting 
 	 */
-	@GetMapping
-	@RequestMapping("/recipes/{id}/show")
+	@GetMapping("/recipes/{id}/show")
 	public String showById(Model model, @PathVariable String id) {
 		log.debug(this.getClass().toString() + ":showById - Loading the webpage recipes/show.html.");
 		model.addAttribute("recipe", recipeService.findById(new Long(id)));
@@ -65,8 +63,7 @@ public class RecipeController{
 	/**
 	 * Open a web site to create a new recipe
 	 */
-	@GetMapping
-	@RequestMapping("/recipes/new")
+	@GetMapping("/recipes/new")
 	public String createNewRecipe(Model model) {
 		log.debug(this.getClass().toString() + ":createNewRecipe - Loading the webpage /recipes/addRecipe.html");
 		model.addAttribute("recipe", new RecipeCommand());
@@ -80,8 +77,7 @@ public class RecipeController{
 	 * 
 	 * @PathVariable String id		use the element {id} from the url 
 	 */
-	@GetMapping
-	@RequestMapping("/recipes/{id}/update")
+	@GetMapping("/recipes/{id}/update")
 	public String updateRecipe(Model model, @PathVariable String id) {
 		log.debug(this.getClass().toString() + ":updateRecipe - Loading the webpage /recipes/createUpdateRecipes.html");
 		model.addAttribute("recipe", recipeService.findRecipeCommandById(Long.valueOf(id)));
@@ -114,8 +110,7 @@ public class RecipeController{
 	/**
 	 * Delete a recipe an return to the main page
 	 */
-	@GetMapping
-	@RequestMapping("/recipes/{id}/delete")
+	@GetMapping("/recipes/{id}/delete")
 	public String deleteById(@PathVariable String id) {
 		recipeService.deleteById(Long.valueOf(id));
 		log.debug(this.getClass().toString() + ":deleteById - Deleted the recipe with the id [" + id + "]");
