@@ -1,8 +1,10 @@
 package com.tutorial.spring.receipe.service;
 
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.transaction.Transactional;
 
@@ -57,7 +59,17 @@ public class RecipeService implements IRecipeService {
 			System.err.println(This.class.toString() + ": Recipes not found." );
 			System.err.println(e.getStackTrace());
 		}
-		return recipes;
+		
+	    Set<Recipe> sortedRecipes = new TreeSet<>(new Comparator<Recipe>() {
+	        @Override
+	        public int compare(Recipe recipeOne, Recipe recipeTwo) {
+	            // Define comparing logic here
+	            return recipeOne.getId().compareTo(recipeTwo.getId());
+	        }
+	    });
+		sortedRecipes.addAll(recipes);
+	    
+		return sortedRecipes;
 	}
 
 	/**
@@ -73,7 +85,7 @@ public class RecipeService implements IRecipeService {
 		if (!recipe.isPresent()) {
 			throw new IllegalAccessError("The recipe with the id [" + id + "] was not found in the database.");
 		}
-		
+	
 		return recipe.get();
 	}
 

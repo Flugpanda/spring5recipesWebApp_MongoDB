@@ -17,12 +17,15 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import com.tutorial.spring.receipe.commands.IngredientsCommand;
+import com.tutorial.spring.receipe.converters.IngredientsCommandToIngredients;
 import com.tutorial.spring.receipe.converters.IngredientsToIngredientsCommand;
+import com.tutorial.spring.receipe.converters.UnitOfMeasureCommandToUnitOfMeasure;
 import com.tutorial.spring.receipe.converters.UnitOfMeasureToUnitOfMeasureCommand;
 import com.tutorial.spring.receipe.model.Ingredient;
 import com.tutorial.spring.receipe.model.Recipe;
 import com.tutorial.spring.receipe.model.UnitOfMeasure;
 import com.tutorial.spring.receipe.repositories.IRecipseRepository;
+import com.tutorial.spring.receipe.repositories.IUnitOfMeasureRepository;
 
 /**
  * 
@@ -41,16 +44,22 @@ public class IngredientServiceTest {
 	
 	@Mock
 	private IRecipseRepository recipeRepository;
-	
-	private IngredientsToIngredientsCommand ingredientsToIngredientsCommand;
+	@Mock
+	private IUnitOfMeasureRepository unitOfMeasureRepository;
+	@Mock
+	private IngredientsToIngredientsCommand ingredientsToCommand;
+	@Mock
+	private IngredientsCommandToIngredients commandToIngredients;
 	
 	
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
 		
-		ingredientsToIngredientsCommand = new IngredientsToIngredientsCommand(new UnitOfMeasureToUnitOfMeasureCommand());
-		ingredientService = new IngredientService(recipeRepository, ingredientsToIngredientsCommand);
+		ingredientsToCommand = new IngredientsToIngredientsCommand(new UnitOfMeasureToUnitOfMeasureCommand());
+		commandToIngredients = new IngredientsCommandToIngredients(new UnitOfMeasureCommandToUnitOfMeasure());
+		
+		ingredientService = new IngredientService(recipeRepository, unitOfMeasureRepository, ingredientsToCommand, commandToIngredients);
 		
 		UnitOfMeasure teaspoon = new UnitOfMeasure();
 		UnitOfMeasure dash = new UnitOfMeasure();
