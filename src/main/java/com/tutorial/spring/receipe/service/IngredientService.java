@@ -1,7 +1,6 @@
 package com.tutorial.spring.receipe.service;
 
 import java.util.Optional;
-import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
@@ -11,7 +10,6 @@ import com.tutorial.spring.receipe.converters.IngredientsToIngredientsCommand;
 import com.tutorial.spring.receipe.model.Ingredient;
 import com.tutorial.spring.receipe.model.Recipe;
 import com.tutorial.spring.receipe.model.UnitOfMeasure;
-import com.tutorial.spring.receipe.repositories.IIngredientReoisitory;
 import com.tutorial.spring.receipe.repositories.IRecipseRepository;
 import com.tutorial.spring.receipe.repositories.IUnitOfMeasureRepository;
 
@@ -29,7 +27,6 @@ public class IngredientService implements IIngredientService {
 
 	private final IRecipseRepository recipseRepository;
 	private final IUnitOfMeasureRepository unitOfMeasureRepository;
-	private final IIngredientReoisitory ingredientReoisitory;
 	
 	private final IngredientsToIngredientsCommand ingredientsToCommand;
 	private final IngredientsCommandToIngredients commandToIngredients;
@@ -43,12 +40,11 @@ public class IngredientService implements IIngredientService {
 	 * @param commandToIngredients
 	 */
 	public IngredientService(IRecipseRepository recipseRepository, IUnitOfMeasureRepository unitOfMeasureRepository,
-			IngredientsToIngredientsCommand ingredientsToCommand,IIngredientReoisitory ingredientReoisitory, IngredientsCommandToIngredients commandToIngredients) {
+			IngredientsToIngredientsCommand ingredientsToCommand, IngredientsCommandToIngredients commandToIngredients) {
 		this.recipseRepository = recipseRepository;
 		this.unitOfMeasureRepository = unitOfMeasureRepository;
 		this.ingredientsToCommand = ingredientsToCommand;
 		this.commandToIngredients = commandToIngredients;
-		this.ingredientReoisitory = ingredientReoisitory;
 	}
 
 	/**
@@ -147,33 +143,47 @@ public class IngredientService implements IIngredientService {
 		return ingredientsToCommand.convert(savedIngredientOptional.get());
 	}
 
+	/**
+	 * 
+	 */
 	@Override
 	public void deleteIngredientFromRecipe(Long recipeId, Long ingredientId) {
 		
-		Optional<Recipe> recipeOptional = recipseRepository.findById(recipeId);
 		Recipe recipe;
+		Ingredient ingredientToDelte;
+		Optional<Ingredient> ingredientOptional;
+		Optional<Recipe> recipeOptional = recipseRepository.findById(recipeId);
 		
+		// check if the recipe exists
 		if (!recipeOptional.isPresent()) {
 			throw new IllegalArgumentException("The recipe  with the id ["	+ recipeId + "] was not found of db.");
 		}else {
 			recipe = recipeOptional.get();
 		}
+	
+		// try to the ingredient from the recipe
+		ingredientOptional = recipe.getIngredients().stream().filter(ingredient -> ingredient.getId().equals(ingredientId)).findFirst();
 		
-		Optional<Ingredient> ingredientOptional =  ingredientReoisitory.findById(ingredientId);
-		Ingredient ingredient;
-			
+		// check if the ingredient exists
 		if (!ingredientOptional.isPresent()) {
-			throw new IllegalArgumentException("The ingredient  with the id ["	+ ingredientId + "] was not found of db.");
+			throw new IllegalArgumentException("The recipe  with the id ["	+ recipeId + "] does not contain the ingredient with the id [" + ingredientId + "].");
 		}else {
-			ingredient = ingredientOptional.get();
+			log.debug(this.getClass().toString() + ":deleteIngredientFromRecipe - Deleting the ingredient [" + ingredientId + "] from the recipe [" + recipeId + "].");
+			
+			// get the actual ingredient object
+			ingredientToDelte = ingredientOptional.get();
+			
+			// remove the ingredient from the recipe
+			recipe.getIngredients().remove(ingredientToDelte);
+			
+			// Delete the ingredient
+			// Setting the value null will tell hibernate to remove the object from the db,
+			// because the object has no longer a valid many to one relationship to a recipe 
+			ingredientToDelte.setRecipe(null);
+			
+			// persist the recipe
+			recipseRepository.save(recipe);
 		}
-		
-		// remove ingredient from the recipe
-		recipe.getIngredients().remove(ingredient);
-		recipe = recipseRepository.save(recipe);
-		
-		// delete the ingredient from the db
-		ingredientReoisitory.deleteById(ingredientId);
 	}
 
 }
