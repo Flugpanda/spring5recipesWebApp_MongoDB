@@ -41,8 +41,9 @@ public class Recipe {
 	private String servings;
 	private String source;
 	private String url;
+	
+	@Lob
 	private Byte[] image;
-
 	@Lob
 	private String directions;
 
