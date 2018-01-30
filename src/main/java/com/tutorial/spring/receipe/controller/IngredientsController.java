@@ -6,12 +6,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.tutorial.spring.receipe.commands.IngredientsCommand;
 import com.tutorial.spring.receipe.commands.RecipeCommand;
 import com.tutorial.spring.receipe.commands.UnitOfMeasureCommand;
-import com.tutorial.spring.receipe.model.Ingredient;
 import com.tutorial.spring.receipe.service.IIngredientService;
 import com.tutorial.spring.receipe.service.IRecipeService;
 import com.tutorial.spring.receipe.service.UnitOfMeasureService;
@@ -19,6 +17,8 @@ import com.tutorial.spring.receipe.service.UnitOfMeasureService;
 import lombok.extern.slf4j.Slf4j;
 
 /**
+ * The IngredientsController represents a spring mvc controller to provide
+ * all the handle all the interaction with the view, that involves the ingredients.
  * 
  * @author Bastian Bräunel
  *
@@ -98,23 +98,33 @@ public class IngredientsController {
     	return "redirect:/recipes/" + savedCommand.getRecipeId() + "/ingredients/" + savedCommand.getId() + "/show";
     }
     
+    /**
+     * Create a new ingredient for a given recipe 
+     */
     @GetMapping("/recipes/{recipeId}/ingredients/new")
     public String createRecipeIngredient(@PathVariable String recipeId, Model model) {
+    	// try to load the recipe from the db
     	RecipeCommand recipeCommand = recipeService.findRecipeCommandById(Long.valueOf(recipeId));
     	
+    	// check if the recipe exists
     	if (recipeCommand == null) {
     		throw new IllegalArgumentException(this.getClass().toString() + ":createRecipeIngredient - Recipe was not found in db!");
 		}
     	
     	log.debug(this.getClass().toString() + ":createRecipeIngredient - Create new ingredient for the recipe [" + recipeId + "].");
     	
+    	// create a new IngredientsCommand as a placeholder for the inputs
     	IngredientsCommand ingredientsCommand = new IngredientsCommand();
+
     	// init RecipeCommand
     	ingredientsCommand.setRecipeId(Long.valueOf(recipeCommand.getId()));
     	ingredientsCommand.setRecipe(recipeCommand);
+    	
     	// init UnitOfMeasureCommand
     	ingredientsCommand.setUnitOfMeas(new UnitOfMeasureCommand());
     	
+    	// adding the ingredient placeholder and the unit of measurements to the model
+    	// so that the user can choose the units from a dropdown
     	model.addAttribute("ingredient", ingredientsCommand);
     	model.addAttribute("uomList", unitOfMeasureService.findAllUnits());
 
