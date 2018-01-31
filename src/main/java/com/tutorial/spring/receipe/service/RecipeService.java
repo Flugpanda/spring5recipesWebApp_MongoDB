@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.tutorial.spring.receipe.commands.RecipeCommand;
 import com.tutorial.spring.receipe.converters.RecipeCommandToRecipe;
 import com.tutorial.spring.receipe.converters.RecipeToRecipeCommand;
+import com.tutorial.spring.receipe.exceptions.NotFoundException;
 import com.tutorial.spring.receipe.model.Recipe;
 import com.tutorial.spring.receipe.repositories.IRecipseRepository;
 
@@ -52,14 +53,15 @@ public class RecipeService implements IRecipeService {
 	@Override
 	public Set<Recipe> getRecipes() {
 		Set<Recipe> recipes = new HashSet<>();
+		
 		try {
 			// Iterate over every item that was found on the database and add it to the set
 			recipseRepository.findAll().iterator().forEachRemaining(recipes::add);
 		} catch (Exception e) {
-			System.err.println(This.class.toString() + ": Recipes not found." );
-			System.err.println(e.getStackTrace());
+			log.debug(this.getClass().toString() +":getRecipes - Recipes not found.");
 		}
 		
+		// create a sorted sort of the recipes from the output from the db
 	    Set<Recipe> sortedRecipes = new TreeSet<>(new Comparator<Recipe>() {
 	        @Override
 	        public int compare(Recipe recipeOne, Recipe recipeTwo) {
@@ -83,7 +85,7 @@ public class RecipeService implements IRecipeService {
 		Optional<Recipe> recipe = recipseRepository.findById(id);
 		
 		if (!recipe.isPresent()) {
-			throw new IllegalAccessError("The recipe with the id [" + id + "] was not found in the database.");
+			throw new NotFoundException("The recipe with the id [" + id + "] was not found in the database.");
 		}
 	
 		return recipe.get();

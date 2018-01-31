@@ -9,10 +9,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.tutorial.spring.receipe.exceptions.NotFoundException;
 import com.tutorial.spring.receipe.model.Recipe;
 import com.tutorial.spring.receipe.repositories.IRecipseRepository;
 
 /**
+ * A service to save an image as a byte array at the db
  * 
  * @author Bastian Bräunel
  *
@@ -43,13 +45,13 @@ public class ImageService implements IImageService {
 		Optional<Recipe> recipeOptional = recipseRepository.findById(Long.valueOf(recipeId));
 		
 		if (!recipeOptional.isPresent()) {
-			throw new IllegalArgumentException("The recipe with the id [" + recipeId + "] was not found.");
+			throw new NotFoundException("The recipe with the id [" + recipeId + "] was not found.");
 		}else {
 			recipe = recipeOptional.get();
 		}
 		
 		if (file == nullValue()) {
-			throw new IllegalArgumentException("The file mustn't be an empty object.");
+			throw new NotFoundException("The file mustn't be an empty object.");
 		}
 		
 		try {

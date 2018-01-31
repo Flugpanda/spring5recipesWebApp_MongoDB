@@ -23,6 +23,7 @@ import com.tutorial.spring.receipe.service.IRecipeService;
 import lombok.extern.slf4j.Slf4j;
 
 /**
+ * A controller to handle the spring mvc interaction for saving and rendering an image
  * 
  * @author Bastian Bräunel
  *

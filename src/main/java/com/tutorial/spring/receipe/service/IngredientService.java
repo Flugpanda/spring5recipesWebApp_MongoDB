@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.tutorial.spring.receipe.commands.IngredientsCommand;
 import com.tutorial.spring.receipe.converters.IngredientsCommandToIngredients;
 import com.tutorial.spring.receipe.converters.IngredientsToIngredientsCommand;
+import com.tutorial.spring.receipe.exceptions.NotFoundException;
 import com.tutorial.spring.receipe.model.Ingredient;
 import com.tutorial.spring.receipe.model.Recipe;
 import com.tutorial.spring.receipe.model.UnitOfMeasure;
@@ -56,7 +57,7 @@ public class IngredientService implements IIngredientService {
 		Optional<Recipe> recipeOptional = recipseRepository.findById(recipeId);
 
 		if (!recipeOptional.isPresent()) {
-			throw new IllegalArgumentException("The recipe with the id [" + recipeId + "] was not found.");
+			throw new NotFoundException("The recipe with the id [" + recipeId + "] was not found.");
 		}
 
 		Recipe recipe = recipeOptional.get();
@@ -70,7 +71,7 @@ public class IngredientService implements IIngredientService {
 
 		if (ingredientCommand == null) {
 			log.debug(this.getClass().toString() + ":findByRecipeIdAndIngredientId - The ingrediten [" + ingredientId + "] was not found within the recipe [" + recipeId + "].");
-			throw new IllegalArgumentException("The ingredient [" + ingredientId + "] was not found in the recipe [" + recipeId + "].");
+			throw new NotFoundException("The ingredient [" + ingredientId + "] was not found in the recipe [" + recipeId + "].");
 		}
 
 		return ingredientCommand;
@@ -89,7 +90,7 @@ public class IngredientService implements IIngredientService {
 		// check if the recipe did exist insde the db 
 		if (!recipeOptional.isPresent()) {
 			log.debug(this.getClass().toString() + ":saveIngredientCommand - The recipe with the id ["+ command.getRecipeId() + "] was not found of db.");
-			throw new IllegalArgumentException("The recipe with the id [" + command.getRecipeId() + "] was not found of db.");
+			throw new NotFoundException("The recipe with the id [" + command.getRecipeId() + "] was not found of db.");
 		} else {
 			recipe = recipeOptional.get();
 		}
@@ -108,7 +109,7 @@ public class IngredientService implements IIngredientService {
 			// lookup the unit of measure from the db
 			Optional<UnitOfMeasure> uomOptional = unitOfMeasureRepository.findById(command.getUnitOfMeas().getId());
 			if (!uomOptional.isPresent()) {
-				throw new IllegalArgumentException("The unit of measure  with the id ["	+ command.getUnitOfMeas().getId() + "] was not found of db.");
+				throw new NotFoundException("The unit of measure  with the id ["	+ command.getUnitOfMeas().getId() + "] was not found of db.");
 			}else {
 				ingredientToUpdate.setUnitOfMeas(uomOptional.get());
 			}
@@ -156,7 +157,7 @@ public class IngredientService implements IIngredientService {
 		
 		// check if the recipe exists
 		if (!recipeOptional.isPresent()) {
-			throw new IllegalArgumentException("The recipe  with the id ["	+ recipeId + "] was not found of db.");
+			throw new NotFoundException("The recipe  with the id ["	+ recipeId + "] was not found of db.");
 		}else {
 			recipe = recipeOptional.get();
 		}
@@ -166,7 +167,7 @@ public class IngredientService implements IIngredientService {
 		
 		// check if the ingredient exists
 		if (!ingredientOptional.isPresent()) {
-			throw new IllegalArgumentException("The recipe  with the id ["	+ recipeId + "] does not contain the ingredient with the id [" + ingredientId + "].");
+			throw new NotFoundException("The recipe  with the id ["	+ recipeId + "] does not contain the ingredient with the id [" + ingredientId + "].");
 		}else {
 			log.debug(this.getClass().toString() + ":deleteIngredientFromRecipe - Deleting the ingredient [" + ingredientId + "] from the recipe [" + recipeId + "].");
 			
