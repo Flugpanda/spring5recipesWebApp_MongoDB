@@ -43,4 +43,23 @@ public class ErrorController {
 	    
 	    return mav;		
 	}
+	
+	/**
+	 * Show a custom 400 site
+	 * 
+	 * This kicks in, whenever a NumberFormatException is thrown
+	 */
+	@ExceptionHandler(NumberFormatException.class)
+	public ModelAndView handleFormatException(HttpServletRequest req, Exception ex) {
+		log.error(this.getClass().toString() + ":handleFormatException - Invalid input, a number was expected.");
+		
+	    ModelAndView mav = new ModelAndView();
+	    mav.addObject("reason", "Illegal input. A number was expected");
+	    mav.addObject("exception", ex);
+	    mav.addObject("url", req.getRequestURL());
+	    mav.setViewName("errors/400error");
+	    mav.setStatus(HttpStatus.BAD_REQUEST);
+	    
+	    return mav;	
+	}
 }
