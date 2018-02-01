@@ -1,14 +1,12 @@
 package com.tutorial.spring.receipe.commands;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * 
+ *  A JavaBean which will hold all the data for Category object.
+ *  
  * @author Bastian Bräunel
  *
  */

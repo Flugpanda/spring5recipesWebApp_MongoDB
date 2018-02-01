@@ -5,7 +5,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * 
+ * A JavaBean which will hold all the data for UnitOfMeasure object.
+ *
  * @author Bastian Bräunel
  *
  */
