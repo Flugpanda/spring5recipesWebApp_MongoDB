@@ -61,8 +61,8 @@ public class DevBoostrapRecipeGrilledChicken extends DevBoostrapRecipe
 		
 		// Setting the basic informations
 		chickenRecipe.setDescription("Spicy Grilled Chicken Tacos");
-		chickenRecipe.setPrepTime("20 minutes");
-		chickenRecipe.setCooktime("15 minutes");
+		chickenRecipe.setPrepTime(20);
+		chickenRecipe.setCooktime(15);
 		chickenRecipe.setDifficulty(EDifficulty.MODERATE);
 		chickenRecipe.setServings("4-6");
 		chickenRecipe.setSource("Simply Recipes");

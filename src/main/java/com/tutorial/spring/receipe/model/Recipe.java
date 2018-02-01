@@ -36,8 +36,8 @@ public class Recipe {
 	private Long id;
 
 	private String description;
-	private String prepTime;
-	private String cooktime;
+	private Integer prepTime;
+	private Integer cooktime;
 	private String servings;
 	private String source;
 	private String url;

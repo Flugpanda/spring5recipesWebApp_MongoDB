@@ -1,7 +1,10 @@
 package com.tutorial.spring.receipe.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -94,11 +97,24 @@ public class RecipeController{
 	 * @RequestMapping(name = "recipe", method = RequestMethod.POST)
 	 * 		old way of telling Spring MVC what http method will be used
 	 * 		@PostMapping is the modern version of this that does the same
+	 * 
+	 * @Valid @ModelAttribute("recipe")		this will do a validation of the data for the recipe object from the view
+	 * 
 	 */
 	//@RequestMapping(name = "recipe", method = RequestMethod.POST)
 	@PostMapping
 	@RequestMapping("recipeToSave")
-	public String saveOrUpdate(@ModelAttribute RecipeCommand command) {
+	public String saveOrUpdate(@Valid @ModelAttribute("recipe") RecipeCommand command, BindingResult bindingResult) {
+		
+		// check if the constrains issed any errors
+		if (bindingResult.hasErrors()) {
+			bindingResult.getAllErrors().forEach(objectError -> {
+				log.debug(objectError.toString());
+			});
+			
+			return "recipes/createUpdateRecipes";
+		}
+		
 		RecipeCommand saveCommand = recipeService.saveRecipeCommand(command);
 		log.debug(this.getClass().toString() + ":saveOrUpdate - Loading the webpage /recipes/show/" + command.getId() + ".html");
 		

@@ -36,13 +36,13 @@ public class RecipeCommand {
 	@Size(min = 3, max = 255)
 	private String description;
 	
-	@Min(1)
+	@Min(0)
 	@Max(999)
-	private String prepTime;
+	private Integer prepTime;
 	
-	@Min(1)
+	@Min(0)
 	@Max(999)
-	private String cookTime;
+	private Integer cookTime;
 	
 	@NotBlank
 	@Size(min = 3, max = 255)

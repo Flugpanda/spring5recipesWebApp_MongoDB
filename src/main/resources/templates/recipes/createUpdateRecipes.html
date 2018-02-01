@@ -18,6 +18,11 @@
 					<!-- The ID of the recipe will be created through the persistence and should never be edited manually -->
 					<input type="hidden" th:field="*{id}" />
 					
+<!-- Show errors through thymeleaf -->
+					<div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+						<p>Please correct the errors below.</p>
+					</div>
+					
 					<div class="pannel-group">
 						<div class="panel panel-primary">
 							<div class="panel-heading">
@@ -26,9 +31,17 @@
 							<div class="panel-body">
 <!-- Description -->
 								<div class="row">
-									<div class="col-md-3 form-group">
+									<div class="col-md-3 form-group" th:class="${#fields.hasErrors('description')} ? 'col-md-3 form-group has-error' : 'col-md-3 form-group'">
 										<label>Recipe Description:</label>
 										<input type="text" class="form-control" th:field="*{description}"/>
+										
+										<!-- Show errors with thymeleaf -->
+                                    	<span class="help-block" th:if="${#fields.hasErrors('description')}">
+                                        	<ul>
+                                           		<li th:each="err : ${#fields.errors('description')}" th:text="${err}"/>
+                                        	</ul>
+                                    	</span>
+										
 									</div>
 								</div>
 <!-- Categories -->
@@ -47,12 +60,28 @@
 								</div>
 								<div class="row">
 <!-- Prep Time -->
-									<div class="col-md-3 form-group">
-										<label>Prep Time:</label> <input type="text" class="form-control" th:field="*{prepTime}" />
+									<div class="col-md-3 form-group" th:class="${#fields.hasErrors('prepTime')} ? 'col-md-3 form-group has-error' : 'col-md-3 form-group'">
+										<label>Prep Time:</label> 
+										<input type="text" class="form-control" th:field="*{prepTime}" />
+	                                    
+	                                    <!-- Show errors with thymeleaf -->
+	                                    <span class="help-block" th:if="${#fields.hasErrors('prepTime')}">
+                                        <ul>
+                                            <li th:each="err : ${#fields.errors('prepTime')}" th:text="${err}"/>
+                                        </ul>
+                                    </span>
 									</div>
 <!-- Cooktime -->
-									<div class="col-md-3 form-group">
-										<label>Cooktime:</label> <input type="text" class="form-control" th:field="*{cookTime}" />
+									<div class="col-md-3 form-group" th:class="${#fields.hasErrors('cookTime')} ? 'col-md-3 form-group has-error' : 'col-md-3 form-group'">
+										<label>Cooktime:</label> 
+										<input type="text" class="form-control" th:field="*{cookTime}" />
+										
+	                                    <!-- Show errors with thymeleaf -->
+	                                    <span class="help-block" th:if="${#fields.hasErrors('cookTime')}">
+                                        <ul>
+                                            <li th:each="err : ${#fields.errors('cookTime')}" th:text="${err}"/>
+                                        </ul>
+                                        </span>
 									</div>
 <!-- Difficulty -->
                                 <div class="col-md-3 form-group">
@@ -72,19 +101,40 @@
 								</div>
 								<div class="row">
 <!-- Servings -->
-									<div class="col-md-3 form-group">
+									<div class="col-md-3 form-group" th:class="${#fields.hasErrors('servings')} ? 'col-md-3 form-group has-error' : 'col-md-3 form-group'">
 										<label>Servings:</label> 
-										<input type="text"	class="form-control" th:field="*{servings}"/>
+										<input type="text" class="form-control" th:field="*{servings}"/>
+										
+										<!-- Show errors with thymeleaf -->
+	                                    <span class="help-block" th:if="${#fields.hasErrors('servings')}">
+                                        <ul>
+                                            <li th:each="err : ${#fields.errors('servings')}" th:text="${err}"/>
+                                        </ul>
+                                        </span>
 									</div>
 <!-- Source -->
-									<div class="col-md-3 form-group">
+									<div class="col-md-3 form-group" th:class="${#fields.hasErrors('source')} ? 'col-md-3 form-group has-error' : 'col-md-3 form-group'">
 										<label>Source:</label>
 										<input type="text" class="form-control" th:field="*{source}"/>
+										
+										<!-- Show errors with thymeleaf -->
+	                                    <span class="help-block" th:if="${#fields.hasErrors('source')}">
+                                        <ul>
+                                            <li th:each="err : ${#fields.errors('source')}" th:text="${err}"/>
+                                        </ul>
+                                        </span>
 									</div>
 <!-- URL -->
-									<div class="col-md-3 form-group">
+									<div class="col-md-3 form-group" th:class="${#fields.hasErrors('url')} ? 'col-md-3 form-group has-error' : 'col-md-3 form-group'">
 										<label>URL:</label>
 										<input type="text" class="form-control"	th:field="*{url}"/>
+										
+										<!-- Show errors with thymeleaf -->
+	                                    <span class="help-block" th:if="${#fields.hasErrors('url')}">
+                                        <ul>
+                                            <li th:each="err : ${#fields.errors('url')}" th:text="${err}"/>
+                                        </ul>
+                                        </span>
 									</div>
 								</div>
 							</div>
@@ -125,8 +175,14 @@
 							<div class="panel-body">
 								<div class="row">
 									<div class="col-md-12 form-group">
-										<textarea class="form-control" rows="3"
-											th:field="*{directions}"></textarea>
+										<textarea class="form-control" rows="3"	th:field="*{directions}"></textarea>
+										
+										<!-- Show errors with thymeleaf -->
+	                                    <span class="help-block" th:if="${#fields.hasErrors('directions')}">
+                                        <ul>
+                                            <li th:each="err : ${#fields.errors('directions')}" th:text="${err}"/>
+                                        </ul>
+                                        </span>
 									</div>
 								</div>
 							</div>
@@ -140,6 +196,13 @@
 								<div class="row">
 									<div class="col-md-12 form-group">
 										<textarea class="form-control" rows="3"	th:field="*{note.content}"></textarea>
+										
+										<!-- Show errors with thymeleaf -->
+	                                    <span class="help-block" th:if="${#fields.hasErrors('note.content')}">
+                                        <ul>
+                                            <li th:each="err : ${#fields.errors('note.content')}" th:text="${err}"/>
+                                        </ul>
+                                        </span>
 									</div>
 								</div>
 							</div>

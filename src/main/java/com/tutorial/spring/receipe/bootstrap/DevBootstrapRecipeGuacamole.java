@@ -53,8 +53,8 @@ public class DevBootstrapRecipeGuacamole extends DevBoostrapRecipe  implements A
 		
 		// Setting the basic informations
 		guacamoleRecipe.setDescription("Perfect Guacamole");
-		guacamoleRecipe.setPrepTime("0 minutes");
-		guacamoleRecipe.setCooktime("10 minutes");
+		guacamoleRecipe.setPrepTime(0);
+		guacamoleRecipe.setCooktime(10);
 		guacamoleRecipe.setDifficulty(EDifficulty.EASY);
 		guacamoleRecipe.setServings("2-4");
 		guacamoleRecipe.setSource("Simply Recipes");
