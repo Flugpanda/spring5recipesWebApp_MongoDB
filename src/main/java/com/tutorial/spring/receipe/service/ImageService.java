@@ -1,7 +1,5 @@
 package com.tutorial.spring.receipe.service;
 
-import static org.hamcrest.CoreMatchers.nullValue;
-
 import java.io.IOException;
 import java.util.Optional;
 
@@ -50,7 +48,7 @@ public class ImageService implements IImageService {
 			recipe = recipeOptional.get();
 		}
 		
-		if (file == nullValue()) {
+		if (file == null) {
 			throw new NotFoundException("The file mustn't be an empty object.");
 		}
 		

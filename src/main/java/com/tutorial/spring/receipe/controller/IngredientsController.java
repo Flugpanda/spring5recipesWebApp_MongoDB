@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.tutorial.spring.receipe.commands.IngredientsCommand;
 import com.tutorial.spring.receipe.commands.RecipeCommand;
@@ -88,11 +89,12 @@ public class IngredientsController {
     /**
      * Save an ingredient and return to the list of the ingredients
      */
-    @PostMapping("recipes/{recipeId}/ingredients/save")
+    @PostMapping
+    @RequestMapping("recipes/{recipeId}/ingredients/save")
     public String saveRecipeIngredient(@ModelAttribute IngredientsCommand command) {
     	IngredientsCommand savedCommand = ingredientService.saveIngredientCommand(command);
     	
-        log.debug(this.getClass().toString() + ":saveRecipeIngredient - Saved recipe with the id [" + savedCommand.getRecipeId() + "]");
+    	log.debug(this.getClass().toString() + ":saveRecipeIngredient - Saved recipe with the id [" + savedCommand.getRecipeId() + "]");
         log.debug(this.getClass().toString() + ":saveRecipeIngredient - saved ingredient with the id [" + savedCommand.getId() + "]");
     	
     	return "redirect:/recipes/" + savedCommand.getRecipeId() + "/ingredients/" + savedCommand.getId() + "/show";
