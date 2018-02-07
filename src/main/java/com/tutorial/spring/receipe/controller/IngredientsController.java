@@ -34,7 +34,7 @@ public class IngredientsController {
 	private final UnitOfMeasureService unitOfMeasureService;
 
 	/**
-	 * default contructor
+	 * default constructor
 	 * 
 	 * @param recipeService		will be injected by the Spring framework
 	 */
@@ -56,7 +56,7 @@ public class IngredientsController {
 		
 		model.addAttribute("recipe", recipeCommand);
 
-		return "/recipes/ingredients/listIngredients";
+		return "recipes/ingredients/listIngredients";
 	}
 	
 	/**

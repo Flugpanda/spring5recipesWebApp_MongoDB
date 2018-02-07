@@ -55,7 +55,7 @@ public class ImageController {
 		log.debug(this.getClass().toString() + ":uploadImage - Open the view to upload an image for the recipe [" + recipeId + "].");
 		model.addAttribute("recipe", recipeCommand);
 		
-		return "/recipes/image/imageUploadForm";
+		return "recipes/image/imageUploadForm";
 	}
 	
 	/**
