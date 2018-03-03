@@ -13,10 +13,10 @@ import com.tutorial.spring.receipe.model.Recipe;
 public interface IRecipeService {
 	
 	public Set<Recipe> getRecipes();
-	public Recipe findById(Long id);
+	public Recipe findById(String id);
 	
 	public RecipeCommand saveRecipeCommand(RecipeCommand recipeCommand);
-	public RecipeCommand findRecipeCommandById(Long id);
+	public RecipeCommand findRecipeCommandById(String id);
 	
-	public void deleteById(Long id);
+	public void deleteById(String id);
 }

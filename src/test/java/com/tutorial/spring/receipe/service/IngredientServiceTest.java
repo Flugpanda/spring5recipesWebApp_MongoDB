@@ -38,9 +38,9 @@ public class IngredientServiceTest {
 	private Recipe mockRecipe;
 	private HashSet<Ingredient> mockIngredients;
 	
-	private Long ingredientOneId = 10l;
-	private Long ingredientTwoId = 11l;
-	private Long mockedRecipeId = 40l;
+	private String ingredientOneId = "10";
+	private String ingredientTwoId = "11";
+	private String mockedRecipeId = "40";
 	
 	@Mock
 	private IRecipseRepository recipeRepository;
@@ -64,14 +64,14 @@ public class IngredientServiceTest {
 		UnitOfMeasure teaspoon = new UnitOfMeasure();
 		UnitOfMeasure dash = new UnitOfMeasure();
 		
-		teaspoon.setId(20l);
-		teaspoon.setUom("Teaspoon");
+		teaspoon.setId("20");
+		teaspoon.setUnitDescription("Teaspoon");
 		
-		dash.setId(22l);;
-		dash.setUom("Dash");
+		dash.setId("22");
+		dash.setUnitDescription("Dash");
 		
 		mockRecipe = new Recipe();
-		mockRecipe.setId(40l);
+		mockRecipe.setId("40");
 		mockRecipe.setDescription("Salt and Pepper");
 						
 		Ingredient ingredientOne = new Ingredient();
@@ -94,7 +94,7 @@ public class IngredientServiceTest {
 		
 		mockRecipe.setIngredients(mockIngredients);
 		
-		when(recipeRepository.findById(Mockito.anyLong())).thenReturn(Optional.of(mockRecipe));
+		when(recipeRepository.findById(Mockito.anyString())).thenReturn(Optional.of(mockRecipe));
 	}
 
 	@Test
@@ -105,6 +105,6 @@ public class IngredientServiceTest {
 		assertNotNull(command);
 		assertEquals(ingredientOneId, command.getId());
 		assertEquals(mockedRecipeId, command.getRecipeId());
-		verify(recipeRepository, times(1)).findById(Mockito.anyLong());
+		verify(recipeRepository, times(1)).findById(Mockito.anyString());
 	}
 }

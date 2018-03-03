@@ -80,7 +80,7 @@ public class RecipeService implements IRecipeService {
 	 * @return		the recipe from the db
 	 */
 	@Override
-	public Recipe findById(Long id) {
+	public Recipe findById(String id) {
 		Optional<Recipe> recipe = recipseRepository.findById(id);
 		
 		if (!recipe.isPresent()) {
@@ -113,7 +113,7 @@ public class RecipeService implements IRecipeService {
 	 */
 	@Override
 	@Transactional
-	public RecipeCommand findRecipeCommandById(Long id) {
+	public RecipeCommand findRecipeCommandById(String id) {
 		RecipeCommand command = recipeToCommand.convert(findById(id));
 		
 		return command;
@@ -123,7 +123,7 @@ public class RecipeService implements IRecipeService {
 	 * Delete a recipe from the database
 	 */
 	@Override
-	public void deleteById(Long id) {
+	public void deleteById(String id) {
 		recipseRepository.deleteById(id);		
 	}	
 }

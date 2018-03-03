@@ -9,8 +9,8 @@ import com.tutorial.spring.receipe.commands.IngredientsCommand;
  */
 public interface IIngredientService {
 
-	public IngredientsCommand findByRecipeIdAndIngredientId(Long recipeId, Long ingredientId);
+	public IngredientsCommand findByRecipeIdAndIngredientId(String recipeId, String ingredientId);
 	public IngredientsCommand saveIngredientCommand(IngredientsCommand command);
 	
-	public void deleteIngredientFromRecipe(Long recipeId, Long ingredientId);
+	public void deleteIngredientFromRecipe(String recipeId, String ingredientId);
 }

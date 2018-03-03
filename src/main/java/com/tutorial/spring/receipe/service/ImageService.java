@@ -36,11 +36,11 @@ public class ImageService implements IImageService {
 	 */
 	@Override
 	@Transactional
-	public void saveImageFile(Long recipeId, MultipartFile file) {
+	public void saveImageFile(String recipeId, MultipartFile file) {
 		
 		Byte[] choppedImage;
 		Recipe recipe;
-		Optional<Recipe> recipeOptional = recipseRepository.findById(Long.valueOf(recipeId));
+		Optional<Recipe> recipeOptional = recipseRepository.findById(recipeId);
 		
 		if (!recipeOptional.isPresent()) {
 			throw new NotFoundException("The recipe with the id [" + recipeId + "] was not found.");

@@ -50,7 +50,7 @@ public class RecipeServiceTest {
 				
 		// create a recipe object that shall be used by Mockito
 		mockRecipe = new Recipe();
-		mockRecipe.setId(1234l);
+		mockRecipe.setId("1234");
 		mockRecipe.setDescription("My mocked recipe");
 		
 		// create a set the and add the recipe
@@ -61,7 +61,7 @@ public class RecipeServiceTest {
 		
 		// configure Mockito to return the mocked set whenever the method getRecipes is called on the recipeService
 		when(recipeService.getRecipes()).thenReturn(mockedRecipes);	
-		when(recipeRepository.findById(Mockito.anyLong())).thenReturn(optionalRecipe);
+		when(recipeRepository.findById(Mockito.anyString())).thenReturn(optionalRecipe);
 	}
 
 	@Test
@@ -79,7 +79,7 @@ public class RecipeServiceTest {
 	
 	@Test
 	public void getById() throws Exception {
-		Long idToFind = new Long(1234l);
+		String idToFind = "1234";
 		Recipe foundRecipe = recipeService.findById(idToFind);
 		
 		// assert a correct object

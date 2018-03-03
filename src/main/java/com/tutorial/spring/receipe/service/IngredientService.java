@@ -52,7 +52,7 @@ public class IngredientService implements IIngredientService {
 	 * Search for a specific recipe from a recipe
 	 */
 	@Override
-	public IngredientsCommand findByRecipeIdAndIngredientId(Long recipeId, Long ingredientId) {
+	public IngredientsCommand findByRecipeIdAndIngredientId(String recipeId, String ingredientId) {
 
 		Optional<Recipe> recipeOptional = recipseRepository.findById(recipeId);
 
@@ -84,7 +84,7 @@ public class IngredientService implements IIngredientService {
 	public IngredientsCommand saveIngredientCommand(IngredientsCommand command) {
 
 		// load the corresponding recipe from the db
-		Optional<Recipe> recipeOptional = recipseRepository.findById(Long.valueOf(command.getRecipeId()));
+		Optional<Recipe> recipeOptional = recipseRepository.findById(command.getRecipeId());
 		Recipe recipe = null;
 
 		// check if the recipe did exist insde the db 
@@ -148,7 +148,7 @@ public class IngredientService implements IIngredientService {
 	 * 
 	 */
 	@Override
-	public void deleteIngredientFromRecipe(Long recipeId, Long ingredientId) {
+	public void deleteIngredientFromRecipe(String recipeId, String ingredientId) {
 		
 		Recipe recipe;
 		Ingredient ingredientToDelte;
