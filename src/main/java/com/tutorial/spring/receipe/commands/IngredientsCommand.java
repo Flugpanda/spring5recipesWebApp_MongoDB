@@ -20,8 +20,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class IngredientsCommand {
-	private Long id;
-	private Long recipeId;
+	private String id;
+	private String recipeId;
 
 	@NotBlank
 	@Size(min = 3, max = 255)
