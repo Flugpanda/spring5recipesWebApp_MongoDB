@@ -58,7 +58,7 @@ public class RecipeController{
 	@GetMapping("/recipes/{id}/show")
 	public String showById(Model model, @PathVariable String id) {
 		log.debug(this.getClass().toString() + ":showById - Loading the webpage recipes/show.html.");
-		model.addAttribute("recipe", recipeService.findById(new Long(id)));
+		model.addAttribute("recipe", recipeService.findById(id));
 		
 		return "recipes/show";
 	}
@@ -83,7 +83,7 @@ public class RecipeController{
 	@GetMapping("/recipes/{id}/update")
 	public String updateRecipe(Model model, @PathVariable String id) {
 		log.debug(this.getClass().toString() + ":updateRecipe - Loading the webpage /recipes/createUpdateRecipes.html");
-		model.addAttribute("recipe", recipeService.findRecipeCommandById(Long.valueOf(id)));
+		model.addAttribute("recipe", recipeService.findRecipeCommandById(id));
 		
 		return "recipes/createUpdateRecipes";
 	}
@@ -128,7 +128,7 @@ public class RecipeController{
 	 */
 	@GetMapping("/recipes/{id}/delete")
 	public String deleteById(@PathVariable String id) {
-		recipeService.deleteById(Long.valueOf(id));
+		recipeService.deleteById(id);
 		log.debug(this.getClass().toString() + ":deleteById - Deleted the recipe with the id [" + id + "]");
 		
 		return "redirect:/recipes";

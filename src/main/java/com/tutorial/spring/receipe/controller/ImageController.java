@@ -51,7 +51,7 @@ public class ImageController {
 	 */
 	@GetMapping("/recipes/{recipeId}/image/upload")
 	public String uploadImage(@PathVariable String recipeId, Model model) {
-		RecipeCommand recipeCommand = recipeService.findRecipeCommandById(Long.valueOf(recipeId));
+		RecipeCommand recipeCommand = recipeService.findRecipeCommandById(recipeId);
 		log.debug(this.getClass().toString() + ":uploadImage - Open the view to upload an image for the recipe [" + recipeId + "].");
 		model.addAttribute("recipe", recipeCommand);
 		
@@ -64,7 +64,7 @@ public class ImageController {
 	@PostMapping
 	@RequestMapping("/recipes/{recipeId}/image/save")
 	public String saveImage(@PathVariable String recipeId, @ModelAttribute MultipartFile imagefile) {
-		imageService.saveImageFile(Long.valueOf(recipeId), imagefile);
+		imageService.saveImageFile(recipeId, imagefile);
 		
 		return "redirect:/recipes/" + recipeId + "/show";
 	}
@@ -74,7 +74,7 @@ public class ImageController {
 	 */
     @GetMapping("recipes/{recipeId}/image")
     public void renderImageFromDB(@PathVariable String recipeId, HttpServletResponse response) throws IOException {
-        RecipeCommand recipeCommand = recipeService.findRecipeCommandById(Long.valueOf(recipeId));
+        RecipeCommand recipeCommand = recipeService.findRecipeCommandById(recipeId);
 
         if (recipeCommand.getImage() != null) {
             byte[] byteArray = new byte[recipeCommand.getImage().length];

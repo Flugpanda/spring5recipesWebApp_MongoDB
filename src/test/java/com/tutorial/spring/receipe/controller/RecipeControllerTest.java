@@ -57,8 +57,8 @@ public class RecipeControllerTest {
 		Recipe recipeOne = new Recipe();
 		Recipe recipeTwo = new Recipe();
 
-		recipeOne.setId(1234l);
-		recipeTwo.setId(9876l);
+		recipeOne.setId("1234");
+		recipeTwo.setId("9876");
 
 		recipes.add(recipeOne);
 		recipes.add(recipeTwo);
@@ -84,12 +84,12 @@ public class RecipeControllerTest {
 	@Test
 	public void testShowRecipe() throws Exception {
 		Recipe recipe = new Recipe();
-		recipe.setId(1l);
+		recipe.setId("1");
 		
 		// setup the spring mvc mock 
 		MockMvc mockMvc = MockMvcBuilders.standaloneSetup(recipeController).build();
 		
-		when(service.findById(Mockito.anyLong())).thenReturn(recipe);
+		when(service.findById(Mockito.anyString())).thenReturn(recipe);
 		
 		mockMvc.perform(get("/recipes/1/show"))
 		.andExpect(status().isOk());

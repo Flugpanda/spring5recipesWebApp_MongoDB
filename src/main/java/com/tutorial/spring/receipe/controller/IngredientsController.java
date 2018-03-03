@@ -51,7 +51,7 @@ public class IngredientsController {
 	 */
 	@GetMapping("/recipes/{recipeId}/ingredients")
 	public String listIngredients(@PathVariable String recipeId, Model model) {
-		RecipeCommand recipeCommand = recipeService.findRecipeCommandById(Long.valueOf(recipeId));
+		RecipeCommand recipeCommand = recipeService.findRecipeCommandById(recipeId);
 		log.debug(this.getClass().toString() + ":listIngredients - Loading the RecipeCommand with the id [" + recipeId + "] to display the ingredients and open /recipes/ingredients/listIngredients.html");   
 		
 		model.addAttribute("recipe", recipeCommand);
@@ -67,7 +67,7 @@ public class IngredientsController {
                                        @PathVariable String id, Model model){
     	log.debug(this.getClass().toString() + ":showRecipeIngredient - Loading the Ingredient view for the recipe with the id [" + recipeId + "] to display its ingredient and open recipes/ingredients/show");
     	
-        model.addAttribute("ingredient", ingredientService.findByRecipeIdAndIngredientId(Long.valueOf(recipeId), Long.valueOf(id)));
+        model.addAttribute("ingredient", ingredientService.findByRecipeIdAndIngredientId(recipeId, id));
         
         return "recipes/ingredients/show";
     }
@@ -80,7 +80,7 @@ public class IngredientsController {
     									 @PathVariable String ingredientId, Model model) {
     	log.debug(this.getClass().toString() + ":showRecipeIngredient - Loading the Ingredient view for the recipe with the id [" + recipeId + "] to display its ingredient and open recipes/ingredients/show");
     	
-        model.addAttribute("ingredient", ingredientService.findByRecipeIdAndIngredientId(Long.valueOf(recipeId), Long.valueOf(ingredientId)));
+        model.addAttribute("ingredient", ingredientService.findByRecipeIdAndIngredientId(recipeId, ingredientId));
         model.addAttribute("uomList", unitOfMeasureService.findAllUnits() );
         
         return "recipes/ingredients/ingredientForm";
@@ -106,7 +106,7 @@ public class IngredientsController {
     @GetMapping("/recipes/{recipeId}/ingredients/new")
     public String createRecipeIngredient(@PathVariable String recipeId, Model model) {
     	// try to load the recipe from the db
-    	RecipeCommand recipeCommand = recipeService.findRecipeCommandById(Long.valueOf(recipeId));
+    	RecipeCommand recipeCommand = recipeService.findRecipeCommandById(recipeId);
     	
     	// check if the recipe exists
     	if (recipeCommand == null) {
@@ -119,7 +119,7 @@ public class IngredientsController {
     	IngredientsCommand ingredientsCommand = new IngredientsCommand();
 
     	// init RecipeCommand
-    	ingredientsCommand.setRecipeId(Long.valueOf(recipeCommand.getId()));
+    	ingredientsCommand.setRecipeId(recipeCommand.getId());
     	ingredientsCommand.setRecipe(recipeCommand);
     	
     	// init UnitOfMeasureCommand
@@ -139,7 +139,7 @@ public class IngredientsController {
     @GetMapping("/recipes/{recipeId}/ingredients/{ingredientId}/delete")
     public String deleteRecipeIngredient(@PathVariable String recipeId, @PathVariable String ingredientId) {
     	log.debug(this.getClass().toString() + ":deleteRecipeIngredient - Deleting the ingredient [" + ingredientId + "] from the recipe [" + recipeId + "].");
-    	ingredientService.deleteIngredientFromRecipe(Long.valueOf(recipeId), Long.valueOf(ingredientId));
+    	ingredientService.deleteIngredientFromRecipe(recipeId, ingredientId);
     	
     	return "redirect:/recipes/" + recipeId + "/ingredients";
     }
