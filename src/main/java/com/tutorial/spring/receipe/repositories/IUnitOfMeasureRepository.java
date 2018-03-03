@@ -3,7 +3,6 @@ package com.tutorial.spring.receipe.repositories;
 import java.util.Optional;
 
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
 
 import com.tutorial.spring.receipe.model.UnitOfMeasure;
 
@@ -12,8 +11,7 @@ import com.tutorial.spring.receipe.model.UnitOfMeasure;
  * @author Bastian Bräunel
  *
  */
-@Repository
-public interface IUnitOfMeasureRepository extends CrudRepository<UnitOfMeasure, Long>{
+public interface IUnitOfMeasureRepository extends CrudRepository<UnitOfMeasure, String>{
 
 	/**
 	 * The method is used to get the data using a jpa query method.

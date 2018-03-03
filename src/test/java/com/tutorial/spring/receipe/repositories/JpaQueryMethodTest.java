@@ -56,7 +56,7 @@ public class JpaQueryMethodTest {
 		assertEquals(categoryDescription, category.get().getDescription());
 		
 		assertNotNull("The mesurement unit was not found to.", mesurementUnit);
-		assertEquals(unitDescription, mesurementUnit.get().getUom());
+		assertEquals(unitDescription, mesurementUnit.get().getUnitDescription());
 
 	}
 }
