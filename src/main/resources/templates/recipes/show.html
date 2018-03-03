@@ -100,7 +100,7 @@
 										<tbody>
 											<tr th:each="ingredient: ${recipe.ingredients}">
 												<td th:text="${ingredient.amount}">2.0</td>
-												<td th:text="${ingredient.unitOfMeas.uom}">Gram</td>
+												<td th:text="${ingredient.unitOfMeas.UnitDescription}">Gram</td>
 												<td th:text="${ingredient.description}"></td>
 											</tr>
 										</tbody>
